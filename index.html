@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>by Fraam Studio — Catálogo</title>
+<style>
+:root{--bg:#f5f5f5;--card:#fff;--ink:#111;--muted:#777;--line:#e7e7e7}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}header{background:#111;color:#fff;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}.brand{font-weight:800;letter-spacing:1px;font-size:21px}.brand small{display:block;font-size:11px;font-weight:400;letter-spacing:2px;margin-top:3px;color:#bbb}.brand-wrap{display:flex;align-items:center;gap:12px}.brand-logo{max-height:42px;max-width:190px;object-fit:contain}main{max-width:1200px;margin:auto;padding:32px 5% 60px}.hero{padding:20px 0 25px}.hero h1{font-size:38px;margin:0 0 8px}.hero p{color:var(--muted);margin:0}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.toolbar input,.toolbar select{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;background:#fff;font-size:14px}.toolbar input{max-width:450px}.toolbar select{max-width:220px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.photo{height:220px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999}.photo img{width:100%;height:100%;object-fit:cover}.photo-thumbs{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:6px;z-index:2}.photo-thumbs img{width:48px;height:48px;object-fit:cover;border-radius:7px;border:2px solid #fff;cursor:pointer;background:#eee;box-shadow:0 2px 8px #0002}.photo{position:relative}.photo-thumbs img:hover{transform:scale(1.04)}.main-photo{cursor:zoom-in}.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}.lightbox.hidden{display:none}.lightbox-content{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}.lightbox-image{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px;user-select:none;-webkit-user-drag:none}.lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:999px;width:46px;height:46px;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center}.lightbox-close{top:18px;right:18px;font-size:24px}.lightbox-prev{left:18px;top:50%;transform:translateY(-50%)}.lightbox-next{right:18px;top:50%;transform:translateY(-50%)}.lightbox-counter{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(0,0,0,.45);padding:7px 12px;border-radius:999px;font-size:13px}.lightbox-hint{position:absolute;bottom:18px;left:18px;color:#ddd;font-size:12px}@media(max-width:700px){.lightbox{padding:10px}.lightbox-image{max-width:100vw;max-height:82vh}.lightbox-prev,.lightbox-next{width:42px;height:42px;font-size:24px;background:rgba(0,0,0,.35)}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:10px;right:10px}}.cardbody{padding:16px}.cat{font-size:11px;text-transform:uppercase;color:#888;letter-spacing:1px}.card h3{margin:7px 0;font-size:18px}.desc{color:#666;font-size:13px;line-height:1.5;min-height:40px}.price{font-size:21px;font-weight:800;margin:12px 0}.prices{width:100%;border-collapse:collapse;font-size:13px}.prices th,.prices td{padding:9px;border-bottom:1px solid #eee;text-align:left}.prices th{font-size:11px;color:#777;text-transform:uppercase}.btn{border:0;border-radius:8px;padding:11px 14px;background:#111;color:#fff;cursor:pointer;font-weight:700}.btn.secondary{background:#eee;color:#111}.actions{display:flex;gap:8px;flex-wrap:wrap}.hidden{display:none!important}.empty{text-align:center;padding:50px;color:#777}.mini{font-size:12px;color:#888}.bizbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.bizpill{background:#eee;border-radius:999px;padding:8px 12px;font-size:12px}.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}.about-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}.about-card h3{margin:0 0 7px;font-size:15px}.about-card p{margin:0;color:#666;font-size:13px;line-height:1.5}.footer{background:#111;color:#fff;margin-top:50px;padding:38px 5%}.footer-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:28px}.footer p{color:#bbb;font-size:13px;line-height:1.6}.footer-bottom{max-width:1200px;margin:28px auto 0;padding-top:18px;border-top:1px solid #333;color:#777;font-size:11px}.cart-fab{position:fixed;right:22px;bottom:22px;z-index:15;background:#111;color:#fff;border:0;border-radius:999px;padding:14px 18px;font-weight:800;box-shadow:0 8px 25px #0003;cursor:pointer}.cart-fab span{background:#fff;color:#111;border-radius:999px;padding:2px 7px;margin-left:6px}.cart-panel{position:fixed;inset:0;background:#0008;z-index:30;display:flex;justify-content:flex-end}.cart-box{background:#fff;width:min(520px,100%);height:100%;overflow:auto;padding:24px}.cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:15px;margin-bottom:15px}.cart-item{border-bottom:1px solid #eee;padding:14px 0}.cart-item-top{display:flex;gap:12px}.cart-item img{width:58px;height:58px;object-fit:cover;border-radius:8px;background:#eee}.cart-controls{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.qty{display:flex;align-items:center;border:1px solid #ddd;border-radius:8px;overflow:hidden}.qty button{border:0;background:#eee;padding:7px 11px;cursor:pointer}.qty b{padding:0 10px}.mode{padding:8px;border:1px solid #ddd;border-radius:8px;background:#fff}.cart-total{font-size:22px;font-weight:800;border-top:1px solid #ddd;padding-top:16px;margin-top:15px}.checkout{width:100%;margin-top:12px}.customer-fields{display:grid;gap:9px;margin-top:15px}.customer-fields input,.customer-fields textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px} .payment-list{display:grid;gap:9px;margin-top:10px}.payment-item{display:flex;align-items:center;gap:10px;background:#1a1a1a;border:1px solid #333;border-radius:9px;padding:10px 12px;color:#fff;font-size:13px}.payment-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#fff1;color:#fff;font-size:17px;flex:none}.payment-text{line-height:1.35}.addbtn{width:100%;margin-top:10px}@media(max-width:700px){.about-grid,.footer-inner{grid-template-columns:1fr}.hero h1{font-size:30px}}
+</style></head><body>
+<header><div class="brand-wrap"><div id="brandLogo"></div><div class="brand">by Fraam Studio<small id="headerSubtitle">CATÁLOGO &amp; PRODUCTOS</small></div></div></header>
+<button class="cart-fab" onclick="openCart()">🛒 Carrito <span id="cartCount">0</span></button><div id="cartPanel" class="cart-panel hidden" onclick="if(event.target===this)closeCart()"><div class="cart-box"><div class="cart-head"><h2 style="margin:0">Tu pedido</h2><button class="btn secondary" onclick="closeCart()">Cerrar</button></div><div id="cartContent"></div></div></div><div id="lightbox" class="lightbox hidden" onclick="if(event.target===this)closeLightbox()"><div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">×</button><button id="lightboxPrev" class="lightbox-prev" onclick="changeLightbox(-1)" aria-label="Imagen anterior">‹</button><img id="lightboxImage" class="lightbox-image" alt=""><button id="lightboxNext" class="lightbox-next" onclick="changeLightbox(1)" aria-label="Imagen siguiente">›</button><div id="lightboxCounter" class="lightbox-counter"></div><div class="lightbox-hint">Deslizá para ver las demás imágenes</div></div></div>
+<main><section><div class="hero"><h1 id="heroTitle">Productos</h1><p id="heroText">Productos personalizados, impresión 3D, gráfica y soluciones para tu negocio.</p></div><div class="toolbar"><input id="search" placeholder="Buscar producto..." oninput="renderCatalog()"><select id="filter" onchange="renderCatalog()"><option value="">Todas las categorías</option></select></div><div class="bizbar"><span id="pill1" class="bizpill">✓ Materiales de primera</span><span id="pill2" class="bizpill">✓ Productos personalizados</span><span id="pill3" class="bizpill">✓ Minorista y mayorista</span><span id="pill4" class="bizpill">✓ Envíos / retiros a coordinar</span></div><div class="about-grid"><div class="about-card"><h3 id="about1Title">Productos a medida</h3><p id="about1Text">Adaptamos medidas, nombres, colores y aplicaciones según cada proyecto.</p></div><div class="about-card"><h3 id="about2Title">Pedidos mayoristas</h3><p id="about2Text">Precios por volumen desde X10 hasta X500 según el producto.</p></div><div class="about-card"><h3 id="about3Title">Cómo comprar</h3><p id="about3Text">Elegí tus productos, agregalos al carrito y enviá el pedido por WhatsApp.</p></div></div><div id="catalogGrid" class="grid"></div></section></main>
+<footer class="footer"><div class="footer-inner"><div><h3 id="footName">by Fraam Studio</h3><p id="footText">Materiales importados de primera. Producción personalizada.</p><p id="footAddress"></p></div><div><h3 id="footerContactTitle">Contacto</h3><p id="footWa"></p><p id="footInstagram"></p></div><div><h3 id="footerInfoTitle">Información</h3><p id="footerInfo1">50% de seña + 50% al entregar o retirar.</p><p id="footerInfo2">Pedidos minoristas y mayoristas.</p></div><div><h3 id="footerPaymentTitle">Medios de pago</h3><div id="footPayments" class="payment-list"></div></div></div><div class="footer-bottom"><span id="footClients"></span><br><span id="footerBottomText">by Fraam Studio · Catálogo online</span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const SUPABASE_URL='https://ruwpvinhnnuiyqdrzmqf.supabase.co';const SUPABASE_KEY='sb_publishable_ho5CaH2v7E0ikXS2BfIUag_Nupt2xOr';const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const tiers=[1,10,20,50,100,250,500];let products=[],settings={percent:{1:0,10:0,20:0,50:0,100:0,250:0,500:0},rounding:1,wa:'',bizName:'by Fraam Studio',bizAddress:'',bizInstagram:'',bizText:'',bizClients:'',bizTerms:'',paymentMethods:'Efectivo\nTransferencia bancaria\nTarjeta mediante link de pago (recargo informado)',header_subtitle:'CATÁLOGO & PRODUCTOS',heroTitle:'Productos',heroText:'Productos personalizados, impresión 3D, gráfica y soluciones para tu negocio.',pill1:'Materiales de primera',pill2:'Productos personalizados',pill3:'Minorista y mayorista',pill4:'Envíos / retiros a coordinar',about1Title:'Productos a medida',about1Text:'Adaptamos medidas, nombres, colores y aplicaciones según cada proyecto.',about2Title:'Pedidos mayoristas',about2Text:'Precios por volumen desde X10 hasta X500 según el producto.',about3Title:'Cómo comprar',about3Text:'Elegí tus productos, agregalos al carrito y enviá el pedido por WhatsApp.',footerContactTitle:'Contacto',footerInfoTitle:'Información',footerInfo1:'50% de seña + 50% al entregar o retirar.',footerInfo2:'Pedidos minoristas y mayoristas.',footerPaymentTitle:'Medios de pago',footerBottomText:'by Fraam Studio · Catálogo online',logo:''};let cart=JSON.parse(localStorage.getItem('bf_cart')||'[]');const money=n=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(n||0);const esc=s=>String(s||'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));function calc(cost,t){let p=cost*(1+(settings.percent[t]||0)/100),r=Number(settings.rounding||1);return r>1?Math.round(p/r)*r:p}
+async function load(){let a=await db.from('products').select('*').eq('active',true).order('created_at',{ascending:true});if(a.error){console.error(a.error);document.getElementById('catalogGrid').innerHTML='<div class="empty" style="grid-column:1/-1">No se pudo cargar el catálogo.</div>';return}products=a.data||[];cart=cart.filter(i=>products.some(p=>p.id===i.id));saveCart();let s=await db.from('settings').select('*').eq('id',1).maybeSingle();if(s.data){settings={...settings,...s.data,bizName:s.data.biz_name||settings.bizName,bizAddress:s.data.biz_address||'',bizInstagram:s.data.biz_instagram||'',bizText:s.data.biz_text||'',bizClients:s.data.biz_clients||'',bizTerms:s.data.biz_terms||'',paymentMethods:s.data.payment_methods||settings.paymentMethods,header_subtitle:s.data.header_subtitle||settings.header_subtitle,heroTitle:s.data.hero_title||settings.heroTitle,heroText:s.data.hero_text||settings.heroText,pill1:s.data.pill1||settings.pill1,pill2:s.data.pill2||settings.pill2,pill3:s.data.pill3||settings.pill3,pill4:s.data.pill4||settings.pill4,about1Title:s.data.about1_title||settings.about1Title,about1Text:s.data.about1_text||settings.about1Text,about2Title:s.data.about2_title||settings.about2Title,about2Text:s.data.about2_text||settings.about2Text,about3Title:s.data.about3_title||settings.about3Title,about3Text:s.data.about3_text||settings.about3Text,footerContactTitle:s.data.footer_contact_title||settings.footerContactTitle,footerInfoTitle:s.data.footer_info_title||settings.footerInfoTitle,footerInfo1:s.data.footer_info1||settings.footerInfo1,footerInfo2:s.data.footer_info2||settings.footerInfo2,footerPaymentTitle:s.data.footer_payment_title||settings.footerPaymentTitle,footerBottomText:s.data.footer_bottom_text||settings.footerBottomText,wa:s.data.wa||'',logo:s.data.logo_url||'',percent:{1:s.data.percent_x1||0,10:s.data.percent_x10||0,20:s.data.percent_x20||0,50:s.data.percent_x50||0,100:s.data.percent_x100||0,250:s.data.percent_x250||0,500:s.data.percent_x500||0}}}updatePublicInfo();renderCatalog();renderCart()}
+function updatePublicInfo(){
+  document.getElementById('brandLogo').innerHTML=(settings.logo_url||settings.logo)?`<img class="brand-logo" src="${settings.logo_url||settings.logo}" alt="${esc(settings.bizName)}">`:'';
+  document.getElementById('headerSubtitle').textContent=settings.header_subtitle||'CATÁLOGO & PRODUCTOS';
+  document.getElementById('heroTitle').textContent=settings.heroTitle||'Productos';
+  document.getElementById('heroText').textContent=settings.heroText||'';
+  document.getElementById('pill1').textContent='✓ '+(settings.pill1||'');
+  document.getElementById('pill2').textContent='✓ '+(settings.pill2||'');
+  document.getElementById('pill3').textContent='✓ '+(settings.pill3||'');
+  document.getElementById('pill4').textContent='✓ '+(settings.pill4||'');
+  document.getElementById('about1Title').textContent=settings.about1Title||'';
+  document.getElementById('about1Text').textContent=settings.about1Text||'';
+  document.getElementById('about2Title').textContent=settings.about2Title||'';
+  document.getElementById('about2Text').textContent=settings.about2Text||'';
+  document.getElementById('about3Title').textContent=settings.about3Title||'';
+  document.getElementById('about3Text').textContent=settings.about3Text||'';
+  document.getElementById('footName').textContent=settings.bizName||'by Fraam Studio';
+  document.getElementById('footText').textContent=settings.bizText||'';
+  document.getElementById('footAddress').textContent=settings.bizAddress?'📍 '+settings.bizAddress:'';
+  document.getElementById('footWa').textContent=settings.wa?'WhatsApp: +'+settings.wa:'';
+  document.getElementById('footInstagram').textContent=settings.bizInstagram?'Instagram: '+settings.bizInstagram:'';
+  document.getElementById('footClients').textContent=settings.bizClients?'Confían en nosotros: '+settings.bizClients:'';
+  document.getElementById('footerContactTitle').textContent=settings.footerContactTitle||'Contacto';
+  document.getElementById('footerInfoTitle').textContent=settings.footerInfoTitle||'Información';
+  document.getElementById('footerInfo1').textContent=settings.footerInfo1||'';
+  document.getElementById('footerInfo2').textContent=settings.footerInfo2||'';
+  document.getElementById('footerPaymentTitle').textContent=settings.footerPaymentTitle||'Medios de pago';
+  document.getElementById('footerBottomText').textContent=settings.footerBottomText||'by Fraam Studio · Catálogo online';
+  document.getElementById('footPayments').innerHTML=renderPaymentMethods(settings.paymentMethods);
+}
+function paymentIcon(text){
+  const t=String(text||'').toLowerCase();
+  if(t.includes('efectivo')||t.includes('cash')) return '💵';
+  if(t.includes('transfer')) return '🏦';
+  if(t.includes('tarjeta')||t.includes('débito')||t.includes('debito')||t.includes('crédito')||t.includes('credito')) return '💳';
+  if(t.includes('mercado pago')||t.includes('mercadopago')) return '🟡';
+  if(t.includes('link')||t.includes('pago')) return '🔗';
+  return '✓';
+}
+function renderPaymentMethods(value){
+  const items=String(value||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+  if(!items.length) return '';
+  return items.map(x=>`<div class="payment-item"><span class="payment-icon">${paymentIcon(x)}</span><span class="payment-text">${esc(x)}</span></div>`).join('');
+}
+function renderCatalog(){let q=(document.getElementById('search').value||'').toLowerCase(),cat=document.getElementById('filter').value||'',cats=[...new Set(products.map(p=>p.category||'Sin categoría'))].sort();document.getElementById('filter').innerHTML='<option value="">Todas las categorías</option>'+cats.map(c=>`<option ${c===cat?'selected':''}>${esc(c)}</option>`).join('');let arr=products.filter(p=>(!q||`${p.name} ${p.description||''} ${p.category||''}`.toLowerCase().includes(q))&&(!cat||(p.category||'Sin categoría')===cat));document.getElementById('catalogGrid').innerHTML=arr.length?arr.map(card).join(''):'<div class="empty" style="grid-column:1/-1">No encontramos productos con esa búsqueda.</div>'}
+function parseImageList(value){
+  if(!value) return [];
+  try{
+    const parsed=JSON.parse(value);
+    if(Array.isArray(parsed)) return parsed.filter(Boolean).slice(0,3);
+  }catch(e){}
+  return [value];
+}
+function card(p){
+  const images=parseImageList(p.image_url);
+  const maxTier=Number(p.max_tier)||500;
+  const availableTiers=tiers.filter(t=>t<=maxTier);
+  window.productGalleries=window.productGalleries||{};
+  window.productGalleries[p.id]=images;
+  const main=images[0]||'';
+  const rows=availableTiers.map(t=>`<tr><td>${t===1?'Minorista':'Mayorista'}</td><td>X${t}</td><td><b>${money(calc(p.cost,t))}</b></td></tr>`).join('');
+  const gallery=main
+    ? `<div class="photo"><img class="main-photo" id="productMain-${p.id}" src="${main}" alt="${esc(p.name)}" onclick="openLightbox(${p.id},0)">${images.length>1?`<div class="photo-thumbs">${images.map((img,i)=>`<img src="${img}" alt="Miniatura ${i+1}" onclick="event.stopPropagation();setProductImage(${p.id},${i})">`).join('')}</div>`:''}</div>`
+    : '<div class="photo">Sin imagen</div>';
+  const wholesale=availableTiers.length>1 ? `<details style="margin-top:12px"><summary>Ver precios por cantidad</summary><br><table class="prices"><tbody>${rows}</tbody></table><br><div class="actions">${availableTiers.filter(t=>t>1).map(t=>`<button class="btn secondary" onclick="addToCart(${p.id},${t})">Agregar X${t}</button>`).join('')}</div></details>` : '';
+  return `<article class="card">${gallery}<div class="cardbody"><div class="cat">${esc(p.category||'Sin categoría')}</div><h3>${esc(p.name)}</h3><div class="desc">${esc(p.description||'')}</div><div class="price">${money(calc(p.cost,1))}</div><div class="mini">Precio minorista · X1</div><button class="btn addbtn" onclick="addToCart(${p.id},1)">🛒 Agregar al carrito</button>${wholesale}</div></article>`
+}
+
+function addToCart(id,tier){let p=products.find(x=>x.id===id);if(!p)return;let i=cart.find(x=>x.id===id&&x.tier===tier);if(i)i.qty+=tier;else cart.push({id,tier,qty:tier});saveCart();renderCart()};function saveCart(){localStorage.setItem('bf_cart',JSON.stringify(cart));updateCount()}function updateCount(){const el=document.getElementById('cartCount');if(!el)return;el.textContent=String(cart.reduce((s,i)=>s+Math.max(0,Number(i.qty)||0),0))}function removeCart(i){if(i<0||i>=cart.length)return;cart.splice(i,1);saveCart();renderCart();updateCount()}function changeQty(i,d){if(!cart[i])return;cart[i].qty=Math.max(cart[i].tier,cart[i].qty+d);saveCart();renderCart();updateCount()}function cartTotal(){return cart.reduce((s,i)=>{let p=products.find(x=>x.id===i.id);return s+(p?calc(p.cost,i.tier)*i.qty:0)},0)}
+function renderCart(){let c=document.getElementById('cartContent');updateCount();if(!cart.length){c.innerHTML='<div class="empty">Tu carrito está vacío.</div>';return}c.innerHTML=cart.map((i,n)=>{let p=products.find(x=>x.id===i.id);if(!p)return '';let u=calc(p.cost,i.tier);return `<div class="cart-item"><div class="cart-item-top"><img src="${parseImageList(p.image_url)[0]||''}"><div><b>${esc(p.name)}</b><div class="mini">${money(u)} c/u · ${i.tier===1?'Minorista X1':'Mayorista X'+i.tier}</div></div><button class="btn" onclick="removeCart(${n})">×</button></div><div class="cart-controls"><div class="qty"><button onclick="changeQty(${n},-${i.tier})">−</button><b>${i.qty}</b><button onclick="changeQty(${n},${i.tier})">+</button></div><b style="margin-left:auto">${money(u*i.qty)}</b></div></div>`}).join('')+`<div class="customer-fields"><input id="custName" placeholder="Nombre / Empresa (opcional)"><textarea id="custNote" rows="3" placeholder="Comentario o consulta adicional"></textarea></div><div class="cart-total">Total estimado: ${money(cartTotal())}</div><div class="cart-note">El pedido se envía por WhatsApp para coordinar disponibilidad y pago. No se cobra desde esta página.</div><button class="btn checkout" onclick="sendOrderWhatsApp()">Enviar pedido por WhatsApp</button>`}
+function openCart(){document.getElementById('cartPanel').classList.remove('hidden');renderCart()}function closeCart(){document.getElementById('cartPanel').classList.add('hidden')};function normalizeWhatsApp(v){let n=String(v||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);return n}
+function normalizeWhatsApp(v){
+  let n=String(v||'').replace(/\D/g,'');
+  if(n.startsWith('00')) n=n.slice(2);
+  if(n.startsWith('54') && !n.startsWith('549')) n='549'+n.slice(2);
+  if(n.startsWith('0')) n='549'+n.slice(1);
+  if(n.startsWith('15')) n='549'+n.slice(2);
+  return n;
+}
+
+function setProductImage(productId,index){
+  const images=(window.productGalleries&&window.productGalleries[productId])||[];
+  if(!images[index])return;
+  const main=document.getElementById('productMain-'+productId);
+  if(main)main.src=images[index];
+  openLightbox(productId,index);
+}
+let lightboxProductId=null,lightboxIndex=0,touchStartX=0,touchStartY=0;
+function openLightbox(productId,index=0){
+  const images=(window.productGalleries&&window.productGalleries[productId])||[];
+  if(!images.length)return;
+  lightboxProductId=productId;
+  lightboxIndex=Math.max(0,Math.min(index,images.length-1));
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  renderLightbox();
+}
+function renderLightbox(){
+  const images=(window.productGalleries&&window.productGalleries[lightboxProductId])||[];
+  if(!images.length){closeLightbox();return;}
+  document.getElementById('lightboxImage').src=images[lightboxIndex];
+  document.getElementById('lightboxImage').alt='Imagen del producto';
+  document.getElementById('lightboxPrev').style.display=images.length>1?'flex':'none';
+  document.getElementById('lightboxNext').style.display=images.length>1?'flex':'none';
+  document.getElementById('lightboxCounter').textContent=images.length>1?`${lightboxIndex+1} / ${images.length}`:'';
+}
+function changeLightbox(direction){
+  const images=(window.productGalleries&&window.productGalleries[lightboxProductId])||[];
+  if(images.length<2)return;
+  lightboxIndex=(lightboxIndex+direction+images.length)%images.length;
+  const main=document.getElementById('productMain-'+lightboxProductId);
+  if(main)main.src=images[lightboxIndex];
+  renderLightbox();
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow='';
+  lightboxProductId=null;
+}
+const lbImage=document.getElementById('lightboxImage');
+if(lbImage){
+  lbImage.addEventListener('touchstart',e=>{const t=e.changedTouches[0];touchStartX=t.clientX;touchStartY=t.clientY},{passive:true});
+  lbImage.addEventListener('touchend',e=>{const t=e.changedTouches[0];const dx=t.clientX-touchStartX;const dy=t.clientY-touchStartY;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy))changeLightbox(dx<0?1:-1)},{passive:true});
+}
+document.addEventListener('keydown',e=>{if(document.getElementById('lightbox').classList.contains('hidden'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')changeLightbox(-1);if(e.key==='ArrowRight')changeLightbox(1)});
+function sendOrderWhatsApp(){
+  if(!cart.length){alert('El carrito está vacío.');return;}
+  const wa=normalizeWhatsApp(settings.wa);
+  if(!wa || wa.length<11){
+    alert('WhatsApp no está configurado correctamente. En Administración colocá tu número en formato 549385XXXXXXX.');
+    return;
+  }
+  let lines=['Hola by Fraam Studio, quiero realizar el siguiente pedido:',''];
+  cart.forEach(i=>{
+    const p=products.find(x=>x.id===i.id);
+    if(!p) return;
+    const unit=calc(p.cost,i.tier);
+    const subtotal=unit*i.qty;
+    lines.push(`• ${p.name} — ${i.tier===1?'Minorista X1':'Mayorista X'+i.tier} — Cantidad: ${i.qty} — ${money(subtotal)}`);
+  });
+  lines.push('',`TOTAL ESTIMADO: ${money(cartTotal())}`);
+  const n=document.getElementById('custName')?.value.trim();
+  const note=document.getElementById('custNote')?.value.trim();
+  if(n) lines.push(`Nombre / Empresa: ${n}`);
+  if(note) lines.push(`Comentario: ${note}`);
+  lines.push('','Quedo a la espera para coordinar disponibilidad y forma de pago.');
+  const url=`https://wa.me/${wa}?text=${encodeURIComponent(lines.join('\n'))}`;
+  window.location.href=url;
+}
+
+load();
+</script></body></html>
