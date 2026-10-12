@@ -54,6 +54,20 @@ Tarjeta mediante link de pago (recargo informado)"></textarea><div class="file-n
   <div><label style="font-size:11px">Imagen 2</label><input id="pimage_file2" type="file" accept="image/*"><img id="productPreview2" class="preview-image hidden" alt="Vista previa 2"></div>
   <div><label style="font-size:11px">Imagen 3</label><input id="pimage_file3" type="file" accept="image/*"><img id="productPreview3" class="preview-image hidden" alt="Vista previa 3"></div>
 </div>
+```html
+<div class="field full">
+  <label>Video del producto (opcional)</label>
+  <input id="pvideo_file" type="file" accept="video/*">
+  <div class="file-note">Seleccioná un video de hasta 50 MB.</div>
+  <video id="productVideoPreview" controls playsinline
+    style="display:none;width:100%;max-width:360px;margin-top:10px">
+  </video>
+  <label style="display:flex;align-items:center;gap:8px;margin-top:10px">
+    <input id="pvideo_remove" type="checkbox">
+    Quitar video guardado
+  </label>
+</div>
+```
 </div><div class="field"><label>Hasta qué cantidad se puede vender este producto</label><select id="pmax_tier"><option value="1">Solo X1</option><option value="10">Hasta X10</option><option value="20">Hasta X20</option><option value="50">Hasta X50</option><option value="100">Hasta X100</option><option value="250">Hasta X250</option><option value="500" selected>Hasta X500</option></select><div class="file-note">Este límite es individual para este producto.</div></div><div class="field"><label>Activo</label><select id="pactive"><option value="true">Sí</option><option value="false">No</option></select></div></div><div class="actions"><button class="btn" onclick="saveProduct()">Guardar producto</button><button class="btn secondary" onclick="clearForm()">Limpiar</button></div></div>
 <div class="panel"><h2>Productos cargados</h2><div id="productList"><div class="empty">Cargando productos...</div></div></div>
 </section>
