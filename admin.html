@@ -53,6 +53,19 @@ main{max-width:1100px;margin:auto;padding:35px 5% 70px}.hidden{display:none!impo
 </div>
 <div class="actions" style="margin-top:16px"><button class="btn" onclick="saveCommercialImages()">Guardar espacios comerciales</button></div><div id="commercialMsg" class="success-msg"></div><div id="commercialErr" class="error"></div>
 </div>
+<div class="panel" id="promotionPanel"><h2>Promoción programada</h2>
+<p style="color:#777;font-size:13px">Configurá una única promoción. El descuento se aplica sobre el precio final calculado, sin modificar costos ni márgenes.</p>
+<div class="fields">
+ <div class="field full"><label for="promo_title">Título de la promoción</label><input id="promo_title" type="text" placeholder="Ej.: Cyber Friday" maxlength="80"></div>
+ <div class="field"><label for="promo_discount">Porcentaje de descuento (%)</label><input id="promo_discount" type="number" min="0.01" max="100" step="0.01" placeholder="20"></div>
+ <div class="field"><label for="promo_scope">Aplicar a</label><select id="promo_scope"><option value="retail">Solo minorista (X1)</option><option value="wholesale">Solo mayorista (X10 a X500)</option><option value="both">Minorista y mayorista</option></select></div>
+ <div class="field"><label for="promo_start">Día de comienzo</label><input id="promo_start" type="date"></div>
+ <div class="field"><label for="promo_end">Día de finalización</label><input id="promo_end" type="date"></div>
+ <div class="field full"><label style="display:flex;align-items:center;gap:9px"><input id="promo_enabled" type="checkbox" style="width:auto"> Activar promoción</label><div class="file-note">Se activa automáticamente entre ambas fechas, inclusive. El último día finaliza a las 23:59, horario de Argentina.</div></div>
+</div>
+<div class="actions"><button class="btn" onclick="savePromotion()">Guardar promoción</button></div>
+<div id="promotionMsg" class="success-msg"></div><div id="promotionErr" class="error"></div>
+</div>
 <div class="panel"><h2>Precios y configuración</h2><p style="color:#777;font-size:13px">Ingresá el porcentaje de margen para cada escala. El cálculo del precio lo hará el catálogo público.</p><div class="tier-grid">
 <div class="tier"><label>X1 (%)</label><input id="p1" type="number" step="0.01"></div><div class="tier"><label>X10 (%)</label><input id="p10" type="number" step="0.01"></div><div class="tier"><label>X20 (%)</label><input id="p20" type="number" step="0.01"></div><div class="tier"><label>X50 (%)</label><input id="p50" type="number" step="0.01"></div><div class="tier"><label>X100 (%)</label><input id="p100" type="number" step="0.01"></div><div class="tier"><label>X250 (%)</label><input id="p250" type="number" step="0.01"></div><div class="tier"><label>X500 (%)</label><input id="p500" type="number" step="0.01"></div><div class="tier"><label>Redondeo</label><input id="rounding" type="number" step="1" min="1"></div>
 </div><div class="fields" style="margin-top:15px"><div class="field"><label>WhatsApp</label><input id="wa" placeholder="549385XXXXXXX"><div class="file-note">Formato recomendado: 5493851234567</div></div><div class="field"><label>Nombre comercial</label><input id="biz_name"></div><div class="field"><label>Dirección</label><input id="biz_address"></div><div class="field"><label>Instagram</label><input id="biz_instagram"></div><div class="field full"><label>Logo</label><input id="logo_file" type="file" accept="image/*"><div class="file-note">Seleccioná una imagen desde tu PC. No necesitás URL.</div><img id="logoPreview" class="preview-image hidden" alt="Vista previa del logo"></div><div class="field full"><label>Texto comercial</label><textarea id="biz_text"></textarea></div><div class="field full"><label>Clientes / empresas</label><textarea id="biz_clients"></textarea></div><div class="field full"><label>Medios de pago</label><textarea id="payment_methods" placeholder="Un medio de pago por línea
@@ -138,8 +151,35 @@ $('footer_payment_title').value=data.footer_payment_title||'Medios de pago';
 $('footer_bottom_text').value=data.footer_bottom_text||'by Fraam Studio · Catálogo online';
 currentLogoUrl=data.logo_url||'';showPreview('logoPreview',currentLogoUrl);
  currentCommercialImages={commercial_cover_desktop:data.commercial_cover_desktop||'',commercial_cover_mobile:data.commercial_cover_mobile||'',promo_banner_1:data.promo_banner_1||'',promo_banner_2:data.promo_banner_2||''};
+ $('promo_title').value=data.promo_title||'';
+ $('promo_discount').value=data.promo_discount??'';
+ $('promo_scope').value=['retail','wholesale','both'].includes(data.promo_scope)?data.promo_scope:'both';
+ $('promo_start').value=data.promo_start||'';
+ $('promo_end').value=data.promo_end||'';
+ $('promo_enabled').checked=data.promo_enabled===true;
  Object.entries(currentCommercialImages).forEach(([key,url])=>showPreview(key+'_preview',url));
  }catch(e){msg('settingsErr','No se pudo cargar la configuración: '+e.message)}}
+async function savePromotion(){
+  hide('promotionMsg'); hide('promotionErr');
+  const title=$('promo_title').value.trim();
+  const discount=Number($('promo_discount').value);
+  const scope=$('promo_scope').value;
+  const start=$('promo_start').value;
+  const end=$('promo_end').value;
+  const enabled=$('promo_enabled').checked;
+  if(enabled && (!title || !Number.isFinite(discount) || discount<=0 || discount>100 || !start || !end)){
+    msg('promotionErr','Para activar la promoción completá el título, un descuento entre 0 y 100 y las dos fechas.'); return;
+  }
+  if(start && end && end<start){msg('promotionErr','La fecha de finalización no puede ser anterior al comienzo.');return;}
+  if(!['retail','wholesale','both'].includes(scope)){msg('promotionErr','Seleccioná un alcance válido.');return;}
+  try{
+    const body={promo_title:title,promo_discount:Number.isFinite(discount)?discount:0,promo_scope:scope,promo_start:start||null,promo_end:end||null,promo_enabled:enabled,updated_at:new Date().toISOString()};
+    const {error}=await db.from('settings').update(body).eq('id',1);
+    if(error) throw error;
+    msg('promotionMsg','Promoción guardada correctamente.');
+  }catch(e){msg('promotionErr','No se pudo guardar. Ejecutá primero el archivo SQL de actualización de Supabase. Detalle: '+e.message);}
+}
+
 async function saveSiteTexts(){
   hide('siteTextMsg'); hide('siteTextErr');
   try{
