@@ -10,14 +10,133 @@
 .promo-banners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:26px 0}
 .promo-banners img{display:block;width:100%;height:auto;border-radius:12px;object-fit:cover}
 @media(max-width:700px){.commercial-cover img{max-height:none}.promo-banners{grid-template-columns:1fr;gap:12px;margin:20px 0}}
+
+/* ===== Rediseño comercial del catálogo público ===== */
+:root{--bg:#f4f5f6;--card:#fff;--ink:#171717;--muted:#70757b;--line:#e8e9eb;--accent:#d6ff65}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{background:#f4f5f6;color:#171717}
+.site-header{padding:0 4%;background:#101010;box-shadow:0 3px 18px #0002}
+.header-inner{max-width:1440px;margin:auto;min-height:82px;display:grid;grid-template-columns: minmax(190px,260px) minmax(240px,1fr) auto;gap:34px;align-items:center}
+.brand{font-size:20px;letter-spacing:.5px;white-space:nowrap}
+.brand small{font-size:9px;letter-spacing:2px}
+.brand-logo{max-width:150px;max-height:38px}
+.header-search{position:relative;width:100%;max-width:720px;margin:auto}
+.header-search input{width:100%;height:46px;border:0;border-radius:7px;padding:0 52px 0 18px;font-size:14px;background:#fff;color:#171717;outline:2px solid transparent;transition:outline .2s}
+.header-search input:focus{outline-color:var(--accent)}
+.search-icon{position:absolute;right:17px;top:7px;color:#222;font-size:27px;pointer-events:none}
+.header-cart{height:44px;border:1px solid #555;border-radius:7px;background:transparent;color:#fff;padding:0 14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.header-cart b{display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:21px;padding:0 5px;margin-left:7px;border-radius:20px;background:var(--accent);color:#111;font-size:11px}
+main{max-width:1440px;padding:26px 4% 64px}
+.market-intro{display:flex;align-items:center;justify-content:space-between;gap:30px;background:#fff;border:1px solid #e9e9e9;border-radius:13px;padding:27px 32px;margin:4px 0 24px}
+.market-intro .eyebrow{font-size:10px;letter-spacing:2px;font-weight:800;color:#777}
+.market-intro h2{font-size:27px;line-height:1.16;margin:9px 0 7px;letter-spacing:-.7px}
+.market-intro h2 strong{font-weight:800}
+.market-intro p{margin:0;color:#70757b;font-size:13px}
+.market-points{display:grid;gap:10px;min-width:210px;font-size:12px;font-weight:700;color:#383838}
+.hero{padding:14px 0 8px}
+.hero h1{font-size:27px;letter-spacing:-.5px;margin-bottom:5px}
+.hero p{font-size:13px}
+.toolbar{align-items:center;margin:16px 0 13px;padding:13px 15px;background:#fff;border:1px solid #e8e9eb;border-radius:10px}
+.toolbar-label{font-size:12px;font-weight:800;margin-right:auto}
+.toolbar select{max-width:260px;width:min(260px,100%);padding:11px 13px;border:1px solid #ddd;border-radius:7px}
+.bizbar{gap:8px;margin:14px 0 20px}
+.bizpill{background:#fff;border:1px solid #e8e9eb;border-radius:6px;padding:8px 11px;color:#4b4b4b;font-weight:600}
+.promotion-strip{border-radius:9px;background:#151515;border-left:5px solid var(--accent);padding:15px 18px}
+.promotion-strip strong{font-size:16px}
+.promo-banners{gap:14px;margin:22px 0}
+.promo-banners img{border-radius:10px;transition:transform .2s}
+.about-grid{margin:25px 0 30px;gap:12px}
+.about-card{border-radius:10px;padding:17px;border-color:#e8e9eb}
+.about-card h3{font-size:14px}
+.grid{grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px}
+.card{border:1px solid #e6e7e9;border-radius:10px;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:0 9px 24px #0000000d}
+.photo{height:235px;background:#f0f1f2}
+.photo img{object-fit:contain}
+.photo-thumbs img{width:42px;height:42px}
+.cardbody{padding:15px;display:flex;flex-direction:column;flex:1}
+.cat{font-size:10px;letter-spacing:1.2px;font-weight:700;color:#81858a}
+.card h3{font-size:16px;line-height:1.3;margin:7px 0}
+.desc{font-size:12px;min-height:36px;line-height:1.45}
+.price{font-size:22px;margin:13px 0 3px}
+.old-price{font-size:13px}
+.mini{font-size:11px}
+.btn{border-radius:7px;background:#171717;transition:background .18s,transform .18s}
+.btn:hover{background:#333}
+.btn.secondary{background:#f0f1f2;color:#171717}
+.btn.secondary:hover{background:#e4e5e6}
+.addbtn{margin-top:auto;padding:12px}
+.prices th,.prices td{padding:8px 6px}
+.footer{margin-top:45px;padding:38px 4%}
+.footer-inner,.footer-bottom{max-width:1440px}
+.cart-fab{display:none}
+.cart-panel{backdrop-filter:blur(3px)}
+.cart-box{box-shadow:-10px 0 40px #0002}
+.mobile-quick-nav{display:none}
+@media(max-width:850px){
+ .header-inner{grid-template-columns:1fr auto;gap:12px;padding:12px 0}
+ .header-search{grid-column:1/-1;grid-row:2;max-width:none}
+ .header-cart{grid-column:2;grid-row:1}
+ .market-intro{padding:22px;gap:18px}
+ .market-intro h2{font-size:23px}
+}
+@media(max-width:600px){
+ .site-header{padding:0 4%}
+ .header-inner{min-height:auto;padding:12px 0 13px;gap:10px}
+ .brand-wrap{gap:8px}
+ .brand{font-size:17px}
+ .brand small{font-size:8px;letter-spacing:1.4px}
+ .brand-logo{max-width:90px;max-height:32px}
+ .header-cart{height:38px;padding:0 9px;font-size:12px}
+ .header-cart span{display:none}
+ .header-search input{height:43px;font-size:13px}
+ main{padding:15px 4% 90px}
+ .market-intro{display:block;padding:20px 17px;margin:0 0 19px}
+ .market-intro h2{font-size:23px}
+ .market-points{display:flex;flex-wrap:wrap;gap:8px 13px;margin-top:15px;font-size:10px}
+ .hero{padding:8px 0 5px}
+ .hero h1{font-size:24px}
+ .toolbar{padding:11px;gap:8px}
+ .toolbar-label{width:100%;font-size:11px}
+ .toolbar select{width:100%;max-width:none}
+ .bizbar{gap:6px}
+ .bizpill{font-size:10px;padding:7px 9px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .photo{height:165px}
+ .photo-thumbs{left:6px;right:6px;bottom:6px;gap:4px}
+ .photo-thumbs img{width:32px;height:32px}
+ .cardbody{padding:10px}
+ .card h3{font-size:13px;margin:5px 0}
+ .cat{font-size:9px}
+ .desc{font-size:10px;min-height:30px}
+ .price{font-size:17px;gap:5px;margin:9px 0 2px}
+ .old-price{font-size:10px}
+ .mini{font-size:9px}
+ .addbtn{font-size:11px;padding:10px 6px;margin-top:9px}
+ .cardbody details summary{font-size:10px}
+ .cardbody details .actions .btn{font-size:9px;padding:7px}
+ .about-grid{grid-template-columns:1fr;gap:8px;margin:18px 0}
+ .about-card{padding:13px}
+ .about-card p{font-size:11px}
+ .promo-banners{grid-template-columns:1fr}
+ .footer{padding:28px 5% 95px}
+ .footer-inner{grid-template-columns:1fr;gap:12px}
+ .footer-inner h3{margin-bottom:5px}
+ .footer-inner p{margin:5px 0}
+ .mobile-quick-nav{position:fixed;z-index:20;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1fr;background:#111;padding:9px 4%;padding-bottom:calc(9px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px #0002}
+ .mobile-quick-nav a,.mobile-quick-nav button{display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-size:11px;font-weight:700;background:transparent;border:0;padding:8px 3px}
+ .mobile-quick-nav button span{background:var(--accent);color:#111;border-radius:20px;padding:2px 6px;margin-left:5px}
+ .cart-fab{display:none!important}
+}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.photo{height:220px}}
 </style></head><body>
-<header><div class="brand-wrap"><div id="brandLogo"></div><div class="brand">by Fraam Studio<small id="headerSubtitle">CATÁLOGO &amp; PRODUCTOS</small></div></div></header>
+<header class="site-header"><div class="header-inner"><div class="brand-wrap"><div id="brandLogo"></div><div class="brand">by Fraam Studio<small id="headerSubtitle">CATÁLOGO &amp; PRODUCTOS</small></div></div><div class="header-search"><input id="search" placeholder="Buscar productos, materiales y más..." oninput="renderCatalog()" aria-label="Buscar productos"><span class="search-icon">⌕</span></div><button class="header-cart" onclick="openCart()">🛒 <span>Mi carrito</span><b id="headerCartCount">0</b></button></div></header>
 <section id="commercialCover" class="commercial-cover hidden" aria-label="Portada comercial">
   <picture><source id="coverMobileSource" media="(max-width:700px)" srcset=""><img id="coverDesktopImage" alt="Portada comercial by Fraam Studio"></picture>
 </section>
 <button class="cart-fab" onclick="openCart()">🛒 Carrito <span id="cartCount">0</span></button><div id="cartPanel" class="cart-panel hidden" onclick="if(event.target===this)closeCart()"><div class="cart-box"><div class="cart-head"><h2 style="margin:0">Tu pedido</h2><button class="btn secondary" onclick="closeCart()">Cerrar</button></div><div id="cartContent"></div></div></div><div id="lightbox" class="lightbox hidden" onclick="if(event.target===this)closeLightbox()"><div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">×</button><button id="lightboxPrev" class="lightbox-prev" onclick="changeLightbox(-1)" aria-label="Imagen anterior">‹</button><img id="lightboxImage" class="lightbox-image" alt=""><button id="lightboxNext" class="lightbox-next" onclick="changeLightbox(1)" aria-label="Imagen siguiente">›</button><div id="lightboxCounter" class="lightbox-counter"></div><div class="lightbox-hint">Deslizá para ver las demás imágenes</div></div></div>
-<main><section><div class="hero"><h1 id="heroTitle">Productos</h1><p id="heroText">Productos personalizados, impresión 3D, gráfica y soluciones para tu negocio.</p></div><div id="promotionStrip" class="promotion-strip hidden"><strong id="promotionStripTitle"></strong><span id="promotionStripDetail"></span></div><div class="toolbar"><input id="search" placeholder="Buscar producto..." oninput="renderCatalog()"><select id="filter" onchange="renderCatalog()"><option value="">Todas las categorías</option></select></div><div class="bizbar"><span id="pill1" class="bizpill">✓ Materiales de primera</span><span id="pill2" class="bizpill">✓ Productos personalizados</span><span id="pill3" class="bizpill">✓ Minorista y mayorista</span><span id="pill4" class="bizpill">✓ Envíos / retiros a coordinar</span></div><div id="promoBanners" class="promo-banners hidden" aria-label="Banners promocionales"><img id="promoBanner1" class="hidden" alt="Promoción by Fraam Studio"><img id="promoBanner2" class="hidden" alt="Promoción by Fraam Studio"></div><div class="about-grid"><div class="about-card"><h3 id="about1Title">Productos a medida</h3><p id="about1Text">Adaptamos medidas, nombres, colores y aplicaciones según cada proyecto.</p></div><div class="about-card"><h3 id="about2Title">Pedidos mayoristas</h3><p id="about2Text">Precios por volumen desde X10 hasta X500 según el producto.</p></div><div class="about-card"><h3 id="about3Title">Cómo comprar</h3><p id="about3Text">Elegí tus productos, agregalos al carrito y enviá el pedido por WhatsApp.</p></div></div><div id="catalogGrid" class="grid"></div></section></main>
-<footer class="footer"><div class="footer-inner"><div><h3 id="footName">by Fraam Studio</h3><p id="footText">Materiales importados de primera. Producción personalizada.</p><p id="footAddress"></p></div><div><h3 id="footerContactTitle">Contacto</h3><p id="footWa"></p><p id="footInstagram"></p></div><div><h3 id="footerInfoTitle">Información</h3><p id="footerInfo1">50% de seña + 50% al entregar o retirar.</p><p id="footerInfo2">Pedidos minoristas y mayoristas.</p></div><div><h3 id="footerPaymentTitle">Medios de pago</h3><div id="footPayments" class="payment-list"></div></div></div><div class="footer-bottom"><span id="footClients"></span><br><span id="footerBottomText">by Fraam Studio · Catálogo online</span></div></footer>
+<main><section><div class="market-intro"><div><span class="eyebrow">BY FRAAM STUDIO · TIENDA ONLINE</span><h2>Encontrá lo que necesitás.<br><strong>Lo hacemos realidad.</strong></h2><p>Productos, gráfica y soluciones personalizadas para marcas y proyectos.</p></div><div class="market-points"><span>✓ Calidad seleccionada</span><span>✓ Atención personalizada</span><span>✓ Minorista y mayorista</span></div></div><div class="hero"><h1 id="heroTitle">Productos</h1><p id="heroText">Productos personalizados, impresión 3D, gráfica y soluciones para tu negocio.</p></div><div id="promotionStrip" class="promotion-strip hidden"><strong id="promotionStripTitle"></strong><span id="promotionStripDetail"></span></div><div class="toolbar"><div class="toolbar-label">Explorá por categoría</div><select id="filter" onchange="renderCatalog()"><option value="">Todas las categorías</option></select></div><div class="bizbar"><span id="pill1" class="bizpill">✓ Materiales de primera</span><span id="pill2" class="bizpill">✓ Productos personalizados</span><span id="pill3" class="bizpill">✓ Minorista y mayorista</span><span id="pill4" class="bizpill">✓ Envíos / retiros a coordinar</span></div><div id="promoBanners" class="promo-banners hidden" aria-label="Banners promocionales"><img id="promoBanner1" class="hidden" alt="Promoción by Fraam Studio"><img id="promoBanner2" class="hidden" alt="Promoción by Fraam Studio"></div><div class="about-grid"><div class="about-card"><h3 id="about1Title">Productos a medida</h3><p id="about1Text">Adaptamos medidas, nombres, colores y aplicaciones según cada proyecto.</p></div><div class="about-card"><h3 id="about2Title">Pedidos mayoristas</h3><p id="about2Text">Precios por volumen desde X10 hasta X500 según el producto.</p></div><div class="about-card"><h3 id="about3Title">Cómo comprar</h3><p id="about3Text">Elegí tus productos, agregalos al carrito y enviá el pedido por WhatsApp.</p></div></div><div id="catalogGrid" class="grid"></div></section></main>
+<nav class="mobile-quick-nav" aria-label="Accesos rápidos"><a href="#catalogGrid">Productos</a><a href="#promotionStrip">Promociones</a><button onclick="openCart()">Carrito <span id="mobileCartCount">0</span></button></nav><footer class="footer"><div class="footer-inner"><div><h3 id="footName">by Fraam Studio</h3><p id="footText">Materiales importados de primera. Producción personalizada.</p><p id="footAddress"></p></div><div><h3 id="footerContactTitle">Contacto</h3><p id="footWa"></p><p id="footInstagram"></p></div><div><h3 id="footerInfoTitle">Información</h3><p id="footerInfo1">50% de seña + 50% al entregar o retirar.</p><p id="footerInfo2">Pedidos minoristas y mayoristas.</p></div><div><h3 id="footerPaymentTitle">Medios de pago</h3><div id="footPayments" class="payment-list"></div></div></div><div class="footer-bottom"><span id="footClients"></span><br><span id="footerBottomText">by Fraam Studio · Catálogo online</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const SUPABASE_URL='https://ruwpvinhnnuiyqdrzmqf.supabase.co';const SUPABASE_KEY='sb_publishable_ho5CaH2v7E0ikXS2BfIUag_Nupt2xOr';const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const tiers=[1,10,20,50,100,250,500];let products=[],settings={percent:{1:0,10:0,20:0,50:0,100:0,250:0,500:0},rounding:1,wa:'',bizName:'by Fraam Studio',bizAddress:'',bizInstagram:'',bizText:'',bizClients:'',bizTerms:'',paymentMethods:'Efectivo\nTransferencia bancaria\nTarjeta mediante link de pago (recargo informado)',header_subtitle:'CATÁLOGO & PRODUCTOS',heroTitle:'Productos',heroText:'Productos personalizados, impresión 3D, gráfica y soluciones para tu negocio.',pill1:'Materiales de primera',pill2:'Productos personalizados',pill3:'Minorista y mayorista',pill4:'Envíos / retiros a coordinar',about1Title:'Productos a medida',about1Text:'Adaptamos medidas, nombres, colores y aplicaciones según cada proyecto.',about2Title:'Pedidos mayoristas',about2Text:'Precios por volumen desde X10 hasta X500 según el producto.',about3Title:'Cómo comprar',about3Text:'Elegí tus productos, agregalos al carrito y enviá el pedido por WhatsApp.',footerContactTitle:'Contacto',footerInfoTitle:'Información',footerInfo1:'50% de seña + 50% al entregar o retirar.',footerInfo2:'Pedidos minoristas y mayoristas.',footerPaymentTitle:'Medios de pago',footerBottomText:'by Fraam Studio · Catálogo online',logo:''};let cart=JSON.parse(localStorage.getItem('bf_cart')||'[]');const money=n=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(n||0);const esc=s=>String(s||'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));function calcBase(cost,t){let p=cost*(1+(settings.percent[t]||0)/100),r=Number(settings.rounding||1);return r>1?Math.round(p/r)*r:p}
 function argentinaToday(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Argentina/Buenos_Aires',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
@@ -121,7 +240,7 @@ function card(p){
   return `<article class="card">${gallery}<div class="cardbody"><div class="cat">${esc(p.category||'Sin categoría')}</div><h3>${esc(p.name)}</h3><div class="desc">${esc(p.description||'')}</div><div class="price">${priceMarkup(p.cost,1)}</div><div class="mini">Precio minorista · X1</div><button class="btn addbtn" onclick="addToCart(${p.id},1)">🛒 Agregar al carrito</button>${wholesale}</div></article>`
 }
 
-function addToCart(id,tier){let p=products.find(x=>x.id===id);if(!p)return;let i=cart.find(x=>x.id===id&&x.tier===tier);if(i)i.qty+=tier;else cart.push({id,tier,qty:tier});saveCart();renderCart()};function saveCart(){localStorage.setItem('bf_cart',JSON.stringify(cart));updateCount()}function updateCount(){const el=document.getElementById('cartCount');if(!el)return;el.textContent=String(cart.reduce((s,i)=>s+Math.max(0,Number(i.qty)||0),0))}function removeCart(i){if(i<0||i>=cart.length)return;cart.splice(i,1);saveCart();renderCart();updateCount()}function changeQty(i,d){if(!cart[i])return;cart[i].qty=Math.max(cart[i].tier,cart[i].qty+d);saveCart();renderCart();updateCount()}function cartTotal(){return cart.reduce((s,i)=>{let p=products.find(x=>x.id===i.id);return s+(p?calc(p.cost,i.tier)*i.qty:0)},0)}
+function addToCart(id,tier){let p=products.find(x=>x.id===id);if(!p)return;let i=cart.find(x=>x.id===id&&x.tier===tier);if(i)i.qty+=tier;else cart.push({id,tier,qty:tier});saveCart();renderCart()};function saveCart(){localStorage.setItem('bf_cart',JSON.stringify(cart));updateCount()}function updateCount(){const count=String(cart.reduce((s,i)=>s+Math.max(0,Number(i.qty)||0),0));['cartCount','headerCartCount','mobileCartCount'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=count})}function removeCart(i){if(i<0||i>=cart.length)return;cart.splice(i,1);saveCart();renderCart();updateCount()}function changeQty(i,d){if(!cart[i])return;cart[i].qty=Math.max(cart[i].tier,cart[i].qty+d);saveCart();renderCart();updateCount()}function cartTotal(){return cart.reduce((s,i)=>{let p=products.find(x=>x.id===i.id);return s+(p?calc(p.cost,i.tier)*i.qty:0)},0)}
 function renderCart(){let c=document.getElementById('cartContent');updateCount();if(!cart.length){c.innerHTML='<div class="empty">Tu carrito está vacío.</div>';return}c.innerHTML=cart.map((i,n)=>{let p=products.find(x=>x.id===i.id);if(!p)return '';let u=calc(p.cost,i.tier);return `<div class="cart-item"><div class="cart-item-top"><img src="${parseImageList(p.image_url)[0]||''}"><div><b>${esc(p.name)}</b><div class="mini">${money(u)} c/u · ${i.tier===1?'Minorista X1':'Mayorista X'+i.tier}</div></div><button class="btn" onclick="removeCart(${n})">×</button></div><div class="cart-controls"><div class="qty"><button onclick="changeQty(${n},-${i.tier})">−</button><b>${i.qty}</b><button onclick="changeQty(${n},${i.tier})">+</button></div><b style="margin-left:auto">${money(u*i.qty)}</b></div></div>`}).join('')+`<div class="customer-fields"><input id="custName" placeholder="Nombre / Empresa (opcional)"><textarea id="custNote" rows="3" placeholder="Comentario o consulta adicional"></textarea></div><div class="cart-total">Total estimado: ${money(cartTotal())}</div><div class="cart-note">El pedido se envía por WhatsApp para coordinar disponibilidad y pago. No se cobra desde esta página.</div><button class="btn checkout" onclick="sendOrderWhatsApp()">Enviar pedido por WhatsApp</button>`}
 function openCart(){document.getElementById('cartPanel').classList.remove('hidden');renderCart()}function closeCart(){document.getElementById('cartPanel').classList.add('hidden')};function normalizeWhatsApp(v){let n=String(v||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);return n}
 function normalizeWhatsApp(v){
