@@ -83,7 +83,7 @@ header button:hover{background:#2968c8}
 <section id="adminView" class="hidden">
 <div class="panel"><h1>Administración</h1><p>Los cambios guardados aquí se reflejarán en el catálogo público.</p><div class="notice">Usuario: <strong id="userEmail"></strong></div></div>
 <nav class="admin-nav" aria-label="Secciones de administración">
-<a href="#siteTexts">Información del sitio</a><a href="#commercial">Portada y banners</a><a href="#promotionPanel">Promoción general</a><a href="#pricing">Precios y configuración</a><a href="#productForm">Nuevo producto</a><a href="#productListPanel">Productos cargados</a>
+<a href="#siteTexts">Información del sitio</a><a href="#commercial">Portada y banners</a><a href="#promotionPanel">Promoción general</a><a href="#featuredOffersPanel">Ofertas destacadas</a><a href="#pricing">Precios y configuración</a><a href="#productForm">Nuevo producto</a><a href="#productListPanel">Productos cargados</a>
 </nav>
 <div class="panel admin-section" id="siteTexts"><h2>Textos e información del sitio</h2><p style="color:#777;font-size:13px">Desde acá podés editar los textos que aparecen en el encabezado, bloques informativos y pie de página del catálogo público.</p><div class="fields">
 <div class="field"><label>Subtítulo del encabezado</label><input id="header_subtitle"></div>
@@ -130,6 +130,13 @@ header button:hover{background:#2968c8}
 <div class="actions"><button class="btn" onclick="savePromotion()">Guardar promoción</button></div>
 <div id="promotionMsg" class="success-msg"></div><div id="promotionErr" class="error"></div>
 </div>
+<div class="panel admin-section" id="featuredOffersPanel"><h2>Seleccionar productos para Ofertas destacadas</h2>
+<p style="color:#777;font-size:13px">Elegí directamente uno de los productos que ya tenés cargados. No hace falta volver a editarlo ni cargarlo otra vez. Los productos que agregues aparecerán en la sección de ofertas destacadas de la tienda.</p>
+<div class="fields"><div class="field"><label for="featuredProductSelect">Producto cargado</label><select id="featuredProductSelect"><option value="">Cargando productos…</option></select></div><div class="field"><label for="featuredProductOrder">Orden de aparición</label><input id="featuredProductOrder" type="number" min="0" step="1" value="0"></div></div>
+<div class="actions"><button class="btn" type="button" onclick="addSelectedFeaturedProduct()">Agregar a ofertas destacadas</button><button class="btn secondary" type="button" onclick="refreshFeaturedProducts()">Actualizar productos</button></div>
+<div id="featuredOffersMsg" class="success-msg"></div><div id="featuredOffersErr" class="error"></div>
+<h3 style="margin:22px 0 8px;font-size:15px">Productos actualmente destacados</h3><div id="featuredOffersList"><div class="empty">Cargando destacados…</div></div>
+</div>
 <div class="panel admin-section" id="pricing"><h2>Precios y configuración</h2><p style="color:#777;font-size:13px">Ingresá el porcentaje de margen para cada escala. El cálculo del precio lo hará el catálogo público.</p><div class="tier-grid">
 <div class="tier"><label>X1 (%)</label><input id="p1" type="number" step="0.01"></div><div class="tier"><label>X10 (%)</label><input id="p10" type="number" step="0.01"></div><div class="tier"><label>X20 (%)</label><input id="p20" type="number" step="0.01"></div><div class="tier"><label>X50 (%)</label><input id="p50" type="number" step="0.01"></div><div class="tier"><label>X100 (%)</label><input id="p100" type="number" step="0.01"></div><div class="tier"><label>X250 (%)</label><input id="p250" type="number" step="0.01"></div><div class="tier"><label>X500 (%)</label><input id="p500" type="number" step="0.01"></div><div class="tier"><label>Redondeo</label><input id="rounding" type="number" step="1" min="1"></div>
 </div><div class="fields" style="margin-top:15px"><div class="field"><label>WhatsApp</label><input id="wa" placeholder="549385XXXXXXX"><div class="file-note">Formato recomendado: 5493851234567</div></div><div class="field"><label>Nombre comercial</label><input id="biz_name"></div><div class="field"><label>Dirección</label><input id="biz_address"></div><div class="field"><label>Instagram</label><input id="biz_instagram"></div><div class="field full"><label>Logo</label><input id="logo_file" type="file" accept="image/*"><div class="file-note">Seleccioná una imagen desde tu PC. No necesitás URL.</div><img id="logoPreview" class="preview-image hidden" alt="Vista previa del logo"></div><div class="field full"><label>Texto comercial</label><textarea id="biz_text"></textarea></div><div class="field full"><label>Clientes / empresas</label><textarea id="biz_clients"></textarea></div><div class="field full"><label>Medios de pago</label><textarea id="payment_methods" placeholder="Un medio de pago por línea
@@ -159,7 +166,7 @@ Tarjeta mediante link de pago (recargo informado)"></textarea><div class="file-n
 <script>
 const SUPABASE_URL='https://ruwpvinhnnuiyqdrzmqf.supabase.co';
 const SUPABASE_KEY='sb_publishable_ho5CaH2v7E0ikXS2BfIUag_Nupt2xOr';
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);let editingId=null;let currentImageUrl='';let currentImageUrls=[];let currentLogoUrl='';let currentCommercialImages={commercial_cover_desktop:'',commercial_cover_mobile:'',promo_banner_1:'',promo_banner_2:''};let clearedCommercialImages=new Set();
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);let adminProducts=[];let editingId=null;let currentImageUrl='';let currentImageUrls=[];let currentLogoUrl='';let currentCommercialImages={commercial_cover_desktop:'',commercial_cover_mobile:'',promo_banner_1:'',promo_banner_2:''};let clearedCommercialImages=new Set();
 const $=id=>document.getElementById(id);
 function msg(id,text){$(id).textContent=text;$(id).style.display='block'} function hide(id){$(id).style.display='none'}
 function money(v){return new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(Number(v)||0)}
@@ -386,7 +393,51 @@ async function saveSettings(){
   }
 }
 
-async function loadProducts(){const l=$('productList');l.innerHTML='<div class="empty">Cargando productos...</div>';try{const{data,error}=await db.from('products').select('*').order('id',{ascending:false});if(error)throw error;renderProducts(data||[])}catch(e){l.innerHTML='<div class="error" style="display:block">No se pudieron cargar los productos.<br><br>'+escapeHtml(e.message)+'</div>'}}
+async function loadProducts(){const l=$('productList');l.innerHTML='<div class="empty">Cargando productos...</div>';try{const{data,error}=await db.from('products').select('*').order('id',{ascending:false});if(error)throw error;adminProducts=data||[];renderProducts(adminProducts);renderFeaturedOfferManager()}catch(e){l.innerHTML='<div class="error" style="display:block">No se pudieron cargar los productos.<br><br>'+escapeHtml(e.message)+'</div>';const sel=$('featuredProductSelect');if(sel)sel.innerHTML='<option value="">No se pudieron cargar los productos</option>'}}
+function renderFeaturedOfferManager(){
+  const select=$('featuredProductSelect'),list=$('featuredOffersList');
+  if(!select||!list)return;
+  const available=adminProducts.filter(p=>p.active!==false&&p.active!=='false');
+  const previous=select.value;
+  select.innerHTML='<option value="">Seleccioná un producto…</option>'+available.map(p=>`<option value="${escapeAttr(p.id)}">${escapeHtml(p.name||'Producto sin nombre')}${p.category?' — '+escapeHtml(p.category):''}</option>`).join('');
+  if(available.some(p=>String(p.id)===previous))select.value=previous;
+  const featured=adminProducts.filter(p=>p.featured===true||p.featured===1||p.featured==='true').sort((a,b)=>(Number(a.featured_order)||0)-(Number(b.featured_order)||0));
+  if(!featured.length){list.innerHTML='<div class="empty">Todavía no seleccionaste productos para Ofertas destacadas.</div>';return;}
+  list.innerHTML=featured.map((p,i)=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')} · Orden ${Number(p.featured_order)||0}</div></div><div class="actions"><button class="btn secondary" type="button" onclick="moveFeaturedProduct(${Number(p.id)},-1)" ${i===0?'disabled':''}>↑</button><button class="btn secondary" type="button" onclick="moveFeaturedProduct(${Number(p.id)},1)" ${i===featured.length-1?'disabled':''}>↓</button><button class="btn danger" type="button" onclick="removeFeaturedProduct(${Number(p.id)})">Quitar</button></div></div>`).join('');
+  const next=Math.max(0,...featured.map(p=>Number(p.featured_order)||0))+1;
+  if(!$('featuredProductOrder').value||Number($('featuredProductOrder').value)===0)$('featuredProductOrder').value=next;
+}
+async function refreshFeaturedProducts(){hide('featuredOffersErr');hide('featuredOffersMsg');await loadProducts();msg('featuredOffersMsg','Lista de productos actualizada.');}
+async function addSelectedFeaturedProduct(){
+  hide('featuredOffersErr');hide('featuredOffersMsg');
+  const id=$('featuredProductSelect').value;
+  if(!id){msg('featuredOffersErr','Primero seleccioná un producto de la lista.');return;}
+  const product=adminProducts.find(p=>String(p.id)===String(id));
+  if(!product){msg('featuredOffersErr','No se encontró el producto seleccionado. Actualizá la lista e intentá nuevamente.');return;}
+  const order=Math.max(0,Number($('featuredProductOrder').value)||0);
+  const {error}=await db.from('products').update({featured:true,featured_order:order,updated_at:new Date().toISOString()}).eq('id',product.id);
+  if(error){msg('featuredOffersErr','No se pudo agregar el producto: '+error.message);return;}
+  await loadProducts();$('featuredProductSelect').value='';$('featuredProductOrder').value='';msg('featuredOffersMsg','“'+(product.name||'Producto')+'” ya está en Ofertas destacadas.');
+}
+async function removeFeaturedProduct(id){
+  hide('featuredOffersErr');hide('featuredOffersMsg');
+  const {error}=await db.from('products').update({featured:false,updated_at:new Date().toISOString()}).eq('id',id);
+  if(error){msg('featuredOffersErr','No se pudo quitar el producto: '+error.message);return;}
+  await loadProducts();msg('featuredOffersMsg','Producto quitado de Ofertas destacadas. No se eliminó del catálogo.');
+}
+async function moveFeaturedProduct(id,direction){
+  const featured=adminProducts.filter(p=>p.featured===true||p.featured===1||p.featured==='true').sort((a,b)=>(Number(a.featured_order)||0)-(Number(b.featured_order)||0));
+  const index=featured.findIndex(p=>Number(p.id)===Number(id)),other=index+direction;
+  if(index<0||other<0||other>=featured.length)return;
+  const a=featured[index],b=featured[other];
+  const orderA=Number(a.featured_order)||0,orderB=Number(b.featured_order)||0;
+  const r=await db.from('products').update({featured_order:orderB,updated_at:new Date().toISOString()}).eq('id',a.id);
+  if(r.error){msg('featuredOffersErr','No se pudo cambiar el orden: '+r.error.message);return;}
+  const q=await db.from('products').update({featured_order:orderA,updated_at:new Date().toISOString()}).eq('id',b.id);
+  if(q.error){msg('featuredOffersErr','No se pudo completar el cambio de orden: '+q.error.message);return;}
+  await loadProducts();
+}
+
 function renderProducts(ps){const l=$('productList');if(!ps.length){l.innerHTML='<div class="empty">Todavía no hay productos cargados.</div>';return}l.innerHTML=ps.map(p=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')}</div><div class="mini">Costo: ${money(p.cost)} · Stock: ${p.stock??0} · Hasta X${p.max_tier||500} · ${p.active?'Activo':'Inactivo'}</div><div class="mini">${(p.featured===true||p.featured===1||p.featured==='true')?'★ Destacado · ':''}${Number(p.individual_discount)>0&&p.individual_enabled?'Descuento individual: '+Number(p.individual_discount)+'% · '+(p.individual_scope==='retail'?'Minorista':p.individual_scope==='wholesale'?'Mayorista':'Ambos'):'Sin descuento individual activo'}</div></div><div class="actions"><button class="btn secondary" onclick="editProduct(${p.id})">Editar</button><button class="btn danger" onclick="deleteProduct(${p.id})">Eliminar</button></div></div>`).join('')}
 function clearForm(){
   editingId=null;
