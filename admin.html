@@ -83,7 +83,7 @@ header button:hover{background:#2968c8}
 <section id="adminView" class="hidden">
 <div class="panel"><h1>Administración</h1><p>Los cambios guardados aquí se reflejarán en el catálogo público.</p><div class="notice">Usuario: <strong id="userEmail"></strong></div></div>
 <nav class="admin-nav" aria-label="Secciones de administración">
-<a href="#siteTexts">Información del sitio</a><a href="#commercial">Portada y banners</a><a href="#promotionPanel">Promoción general</a><a href="#featuredOffersPanel">Ofertas destacadas</a><a href="#pricing">Precios y configuración</a><a href="#productForm">Nuevo producto</a><a href="#productListPanel">Productos cargados</a>
+<a href="#siteTexts">Información del sitio</a><a href="#commercial">Portada y banners</a><a href="#promotionPanel">Promoción general</a><a href="#featuredOffersPanel">Ofertas y más vendidos</a><a href="#pricing">Precios y configuración</a><a href="#productForm">Nuevo producto</a><a href="#productListPanel">Productos cargados</a>
 </nav>
 <div class="panel admin-section" id="siteTexts"><h2>Textos e información del sitio</h2><p style="color:#777;font-size:13px">Desde acá podés editar los textos que aparecen en el encabezado, bloques informativos y pie de página del catálogo público.</p><div class="fields">
 <div class="field"><label>Subtítulo del encabezado</label><input id="header_subtitle"></div>
@@ -130,12 +130,21 @@ header button:hover{background:#2968c8}
 <div class="actions"><button class="btn" onclick="savePromotion()">Guardar promoción</button></div>
 <div id="promotionMsg" class="success-msg"></div><div id="promotionErr" class="error"></div>
 </div>
-<div class="panel admin-section" id="featuredOffersPanel"><h2>Seleccionar productos para Ofertas destacadas</h2>
-<p style="color:#777;font-size:13px">Elegí directamente uno de los productos que ya tenés cargados. No hace falta volver a editarlo ni cargarlo otra vez. Los productos que agregues aparecerán en la sección de ofertas destacadas de la tienda.</p>
-<div class="fields"><div class="field"><label for="featuredProductSelect">Producto cargado</label><select id="featuredProductSelect"><option value="">Cargando productos…</option></select></div><div class="field"><label for="featuredProductOrder">Orden de aparición</label><input id="featuredProductOrder" type="number" min="0" step="1" value="0"></div></div>
-<div class="actions"><button class="btn" type="button" onclick="addSelectedFeaturedProduct()">Agregar a ofertas destacadas</button><button class="btn secondary" type="button" onclick="refreshFeaturedProducts()">Actualizar productos</button></div>
+<div class="panel admin-section" id="featuredOffersPanel"><h2>Ofertas y más vendidos</h2>
+<p style="color:#777;font-size:13px">Toda la configuración comercial de cada producto se administra desde acá. Seleccioná un producto ya cargado, definí dónde aparece y configurá su descuento individual, sin entrar a editar la ficha del producto.</p>
+<div class="fields">
+ <div class="field full"><label for="featuredProductSelect">Producto cargado</label><select id="featuredProductSelect" onchange="loadManagedProductConfig()"><option value="">Seleccioná un producto…</option></select></div>
+ <div class="field"><label for="managedPlacement">Mostrar en</label><select id="managedPlacement"><option value="none">No incluir en estas secciones</option><option value="offers">Ofertas destacadas</option><option value="bestsellers">Más vendidos</option></select></div>
+ <div class="field"><label for="featuredProductOrder">Orden de aparición</label><input id="featuredProductOrder" type="number" min="0" step="1" value="0"><div class="file-note">Los números menores aparecen primero.</div></div>
+ <div class="field"><label for="pindividual_discount">Descuento individual (%)</label><input id="pindividual_discount" type="number" min="0" max="100" step="0.01" placeholder="Ej.: 15"></div>
+ <div class="field"><label for="pindividual_scope">Aplicar descuento a</label><select id="pindividual_scope"><option value="both">Minorista y mayorista</option><option value="retail">Solo minorista (X1)</option><option value="wholesale">Solo mayorista (X10 a X500)</option></select></div>
+ <div class="field"><label for="pindividual_start">Fecha de inicio</label><input id="pindividual_start" type="date"></div>
+ <div class="field"><label for="pindividual_end">Fecha de finalización</label><input id="pindividual_end" type="date"></div>
+ <div class="field full"><label style="display:flex;align-items:center;gap:9px"><input id="pindividual_enabled" type="checkbox" style="width:auto"> Activar descuento individual</label><div class="file-note">La promoción general tiene prioridad cuando su alcance coincide. Los descuentos no se acumulan.</div></div>
+</div>
+<div class="actions"><button class="btn" type="button" onclick="saveManagedProductConfig()">Guardar configuración del producto</button><button class="btn secondary" type="button" onclick="refreshFeaturedProducts()">Actualizar productos</button></div>
 <div id="featuredOffersMsg" class="success-msg"></div><div id="featuredOffersErr" class="error"></div>
-<h3 style="margin:22px 0 8px;font-size:15px">Productos actualmente destacados</h3><div id="featuredOffersList"><div class="empty">Cargando destacados…</div></div>
+<h3 style="margin:22px 0 8px;font-size:15px">Productos en estas secciones</h3><div id="featuredOffersList"><div class="empty">Cargando productos…</div></div>
 </div>
 <div class="panel admin-section" id="pricing"><h2>Precios y configuración</h2><p style="color:#777;font-size:13px">Ingresá el porcentaje de margen para cada escala. El cálculo del precio lo hará el catálogo público.</p><div class="tier-grid">
 <div class="tier"><label>X1 (%)</label><input id="p1" type="number" step="0.01"></div><div class="tier"><label>X10 (%)</label><input id="p10" type="number" step="0.01"></div><div class="tier"><label>X20 (%)</label><input id="p20" type="number" step="0.01"></div><div class="tier"><label>X50 (%)</label><input id="p50" type="number" step="0.01"></div><div class="tier"><label>X100 (%)</label><input id="p100" type="number" step="0.01"></div><div class="tier"><label>X250 (%)</label><input id="p250" type="number" step="0.01"></div><div class="tier"><label>X500 (%)</label><input id="p500" type="number" step="0.01"></div><div class="tier"><label>Redondeo</label><input id="rounding" type="number" step="1" min="1"></div>
@@ -151,15 +160,7 @@ Tarjeta mediante link de pago (recargo informado)"></textarea><div class="file-n
   <div><label style="font-size:11px">Imagen 3</label><input id="pimage_file3" type="file" accept="image/*"><img id="productPreview3" class="preview-image hidden" alt="Vista previa 3"></div>
 </div>
 </div><div class="field"><label>Hasta qué cantidad se puede vender este producto</label><select id="pmax_tier"><option value="1">Solo X1</option><option value="10">Hasta X10</option><option value="20">Hasta X20</option><option value="50">Hasta X50</option><option value="100">Hasta X100</option><option value="250">Hasta X250</option><option value="500" selected>Hasta X500</option></select><div class="file-note">Este límite es individual para este producto.</div></div><div class="field"><label>Activo</label><select id="pactive"><option value="true">Sí</option><option value="false">No</option></select></div>
-<div class="field full" style="border-top:1px solid #e5e7eb;padding-top:18px"><h3 style="margin:0 0 12px">Ofertas y destacados</h3><p class="file-note">Elegí si este producto aparece en la sección de destacados y configurá un descuento individual. Puede estar destacado sin descuento.</p></div>
-<div class="field"><label style="display:flex;align-items:center;gap:9px"><input id="pfeatured" type="checkbox" style="width:auto"> Mostrar en Ofertas destacadas</label></div>
-<div class="field"><label for="pfeatured_order">Orden de aparición (menor primero)</label><input id="pfeatured_order" type="number" min="0" step="1" value="0"></div>
-<div class="field"><label for="pindividual_discount">Descuento individual (%)</label><input id="pindividual_discount" type="number" min="0" max="100" step="0.01" placeholder="Ej.: 15"></div>
-<div class="field"><label for="pindividual_scope">Aplicar descuento a</label><select id="pindividual_scope"><option value="both">Minorista y mayorista</option><option value="retail">Solo minorista (X1)</option><option value="wholesale">Solo mayorista (X10 a X500)</option></select></div>
-<div class="field"><label for="pindividual_start">Fecha de inicio</label><input id="pindividual_start" type="date"></div>
-<div class="field"><label for="pindividual_end">Fecha de finalización</label><input id="pindividual_end" type="date"></div>
-<div class="field full"><label style="display:flex;align-items:center;gap:9px"><input id="pindividual_enabled" type="checkbox" style="width:auto"> Activar descuento individual</label><div class="file-note">La promoción general tiene prioridad cuando su alcance coincide. Los descuentos no se acumulan.</div></div>
-</div><div class="actions"><button class="btn" onclick="saveProduct()">Guardar producto</button><button class="btn secondary" onclick="clearForm()">Limpiar</button></div></div>
+<div class="actions"><button class="btn" onclick="saveProduct()">Guardar producto</button><button class="btn secondary" onclick="clearForm()">Limpiar</button></div></div>
 <div class="panel admin-section" id="productListPanel"><h2>Productos cargados</h2><div id="productList"><div class="empty">Cargando productos...</div></div></div>
 </section>
 </main>
@@ -394,6 +395,7 @@ async function saveSettings(){
 }
 
 async function loadProducts(){const l=$('productList');l.innerHTML='<div class="empty">Cargando productos...</div>';try{const{data,error}=await db.from('products').select('*').order('id',{ascending:false});if(error)throw error;adminProducts=data||[];renderProducts(adminProducts);renderFeaturedOfferManager()}catch(e){l.innerHTML='<div class="error" style="display:block">No se pudieron cargar los productos.<br><br>'+escapeHtml(e.message)+'</div>';const sel=$('featuredProductSelect');if(sel)sel.innerHTML='<option value="">No se pudieron cargar los productos</option>'}}
+function isTrue(v){return v===true||v===1||v==='true'}
 function renderFeaturedOfferManager(){
   const select=$('featuredProductSelect'),list=$('featuredOffersList');
   if(!select||!list)return;
@@ -401,44 +403,46 @@ function renderFeaturedOfferManager(){
   const previous=select.value;
   select.innerHTML='<option value="">Seleccioná un producto…</option>'+available.map(p=>`<option value="${escapeAttr(p.id)}">${escapeHtml(p.name||'Producto sin nombre')}${p.category?' — '+escapeHtml(p.category):''}</option>`).join('');
   if(available.some(p=>String(p.id)===previous))select.value=previous;
-  const featured=adminProducts.filter(p=>p.featured===true||p.featured===1||p.featured==='true').sort((a,b)=>(Number(a.featured_order)||0)-(Number(b.featured_order)||0));
-  if(!featured.length){list.innerHTML='<div class="empty">Todavía no seleccionaste productos para Ofertas destacadas.</div>';return;}
-  list.innerHTML=featured.map((p,i)=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')} · Orden ${Number(p.featured_order)||0}</div></div><div class="actions"><button class="btn secondary" type="button" onclick="moveFeaturedProduct(${Number(p.id)},-1)" ${i===0?'disabled':''}>↑</button><button class="btn secondary" type="button" onclick="moveFeaturedProduct(${Number(p.id)},1)" ${i===featured.length-1?'disabled':''}>↓</button><button class="btn danger" type="button" onclick="removeFeaturedProduct(${Number(p.id)})">Quitar</button></div></div>`).join('');
-  const next=Math.max(0,...featured.map(p=>Number(p.featured_order)||0))+1;
-  if(!$('featuredProductOrder').value||Number($('featuredProductOrder').value)===0)$('featuredProductOrder').value=next;
+  const assigned=adminProducts.filter(p=>isTrue(p.featured)||isTrue(p.bestseller)).sort((a,b)=>{
+    const ao=isTrue(a.featured)?Number(a.featured_order)||0:Number(a.bestseller_order)||0;
+    const bo=isTrue(b.featured)?Number(b.featured_order)||0:Number(b.bestseller_order)||0;return ao-bo;
+  });
+  if(!assigned.length){list.innerHTML='<div class="empty">Todavía no hay productos asignados a Ofertas destacadas o Más vendidos.</div>';return;}
+  list.innerHTML=assigned.map(p=>{const type=isTrue(p.featured)?'Ofertas destacadas':'Más vendidos';const order=isTrue(p.featured)?p.featured_order:p.bestseller_order;const discount=Number(p.individual_discount)>0&&isTrue(p.individual_enabled)?` · Descuento ${Number(p.individual_discount)}%`:' · Sin descuento activo';return `<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${type} · Orden ${Number(order)||0}${discount}</div></div><div class="actions"><button class="btn secondary" type="button" onclick="selectManagedProduct(${Number(p.id)})">Configurar</button><button class="btn danger" type="button" onclick="clearManagedPlacement(${Number(p.id)})">Quitar</button></div></div>`}).join('');
 }
+function loadManagedProductConfig(){
+  const p=adminProducts.find(x=>String(x.id)===$('featuredProductSelect').value);
+  if(!p){$('managedPlacement').value='none';$('featuredProductOrder').value='0';$('pindividual_discount').value='';$('pindividual_scope').value='both';$('pindividual_start').value='';$('pindividual_end').value='';$('pindividual_enabled').checked=false;return;}
+  $('managedPlacement').value=isTrue(p.featured)?'offers':isTrue(p.bestseller)?'bestsellers':'none';
+  $('featuredProductOrder').value=isTrue(p.featured)?(p.featured_order??0):(p.bestseller_order??0);
+  $('pindividual_discount').value=p.individual_discount??'';
+  $('pindividual_scope').value=['both','retail','wholesale'].includes(p.individual_scope)?p.individual_scope:'both';
+  $('pindividual_start').value=p.individual_start||'';$('pindividual_end').value=p.individual_end||'';$('pindividual_enabled').checked=isTrue(p.individual_enabled);
+}
+function selectManagedProduct(id){$('featuredProductSelect').value=String(id);loadManagedProductConfig();$('featuredProductSelect').scrollIntoView({behavior:'smooth',block:'center'});}
 async function refreshFeaturedProducts(){hide('featuredOffersErr');hide('featuredOffersMsg');await loadProducts();msg('featuredOffersMsg','Lista de productos actualizada.');}
-async function addSelectedFeaturedProduct(){
+async function saveManagedProductConfig(){
   hide('featuredOffersErr');hide('featuredOffersMsg');
-  const id=$('featuredProductSelect').value;
-  if(!id){msg('featuredOffersErr','Primero seleccioná un producto de la lista.');return;}
-  const product=adminProducts.find(p=>String(p.id)===String(id));
-  if(!product){msg('featuredOffersErr','No se encontró el producto seleccionado. Actualizá la lista e intentá nuevamente.');return;}
-  const order=Math.max(0,Number($('featuredProductOrder').value)||0);
-  const {error}=await db.from('products').update({featured:true,featured_order:order,updated_at:new Date().toISOString()}).eq('id',product.id);
-  if(error){msg('featuredOffersErr','No se pudo agregar el producto: '+error.message);return;}
-  await loadProducts();$('featuredProductSelect').value='';$('featuredProductOrder').value='';msg('featuredOffersMsg','“'+(product.name||'Producto')+'” ya está en Ofertas destacadas.');
+  const id=$('featuredProductSelect').value;if(!id){msg('featuredOffersErr','Primero seleccioná un producto.');return;}
+  const product=adminProducts.find(p=>String(p.id)===String(id));if(!product){msg('featuredOffersErr','No se encontró el producto. Actualizá la lista e intentá nuevamente.');return;}
+  const discount=Number($('pindividual_discount').value||0),start=$('pindividual_start').value,end=$('pindividual_end').value;
+  if(discount<0||discount>100){msg('featuredOffersErr','El descuento debe estar entre 0 y 100%.');return;}
+  if(start&&end&&end<start){msg('featuredOffersErr','La fecha final no puede ser anterior a la inicial.');return;}
+  if($('pindividual_enabled').checked&&discount<=0){msg('featuredOffersErr','Para activar el descuento, ingresá un porcentaje mayor a 0.');return;}
+  const placement=$('managedPlacement').value,order=Math.max(0,Number($('featuredProductOrder').value)||0);
+  const body={featured:placement==='offers',featured_order:placement==='offers'?order:0,bestseller:placement==='bestsellers',bestseller_order:placement==='bestsellers'?order:0,individual_discount:discount,individual_scope:$('pindividual_scope').value||'both',individual_start:start||null,individual_end:end||null,individual_enabled:$('pindividual_enabled').checked,updated_at:new Date().toISOString()};
+  const {error}=await db.from('products').update(body).eq('id',product.id);
+  if(error){msg('featuredOffersErr','No se pudo guardar: '+error.message);return;}
+  await loadProducts();$('featuredProductSelect').value=String(product.id);loadManagedProductConfig();msg('featuredOffersMsg','Configuración guardada para “'+(product.name||'Producto')+'”.');
 }
-async function removeFeaturedProduct(id){
+async function clearManagedPlacement(id){
   hide('featuredOffersErr');hide('featuredOffersMsg');
-  const {error}=await db.from('products').update({featured:false,updated_at:new Date().toISOString()}).eq('id',id);
-  if(error){msg('featuredOffersErr','No se pudo quitar el producto: '+error.message);return;}
-  await loadProducts();msg('featuredOffersMsg','Producto quitado de Ofertas destacadas. No se eliminó del catálogo.');
-}
-async function moveFeaturedProduct(id,direction){
-  const featured=adminProducts.filter(p=>p.featured===true||p.featured===1||p.featured==='true').sort((a,b)=>(Number(a.featured_order)||0)-(Number(b.featured_order)||0));
-  const index=featured.findIndex(p=>Number(p.id)===Number(id)),other=index+direction;
-  if(index<0||other<0||other>=featured.length)return;
-  const a=featured[index],b=featured[other];
-  const orderA=Number(a.featured_order)||0,orderB=Number(b.featured_order)||0;
-  const r=await db.from('products').update({featured_order:orderB,updated_at:new Date().toISOString()}).eq('id',a.id);
-  if(r.error){msg('featuredOffersErr','No se pudo cambiar el orden: '+r.error.message);return;}
-  const q=await db.from('products').update({featured_order:orderA,updated_at:new Date().toISOString()}).eq('id',b.id);
-  if(q.error){msg('featuredOffersErr','No se pudo completar el cambio de orden: '+q.error.message);return;}
-  await loadProducts();
+  const {error}=await db.from('products').update({featured:false,bestseller:false,updated_at:new Date().toISOString()}).eq('id',id);
+  if(error){msg('featuredOffersErr','No se pudo quitar de las secciones: '+error.message);return;}
+  await loadProducts();msg('featuredOffersMsg','Producto quitado de Ofertas destacadas y Más vendidos. El descuento individual se conservó.');
 }
 
-function renderProducts(ps){const l=$('productList');if(!ps.length){l.innerHTML='<div class="empty">Todavía no hay productos cargados.</div>';return}l.innerHTML=ps.map(p=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')}</div><div class="mini">Costo: ${money(p.cost)} · Stock: ${p.stock??0} · Hasta X${p.max_tier||500} · ${p.active?'Activo':'Inactivo'}</div><div class="mini">${(p.featured===true||p.featured===1||p.featured==='true')?'★ Destacado · ':''}${Number(p.individual_discount)>0&&p.individual_enabled?'Descuento individual: '+Number(p.individual_discount)+'% · '+(p.individual_scope==='retail'?'Minorista':p.individual_scope==='wholesale'?'Mayorista':'Ambos'):'Sin descuento individual activo'}</div></div><div class="actions"><button class="btn secondary" onclick="editProduct(${p.id})">Editar</button><button class="btn danger" onclick="deleteProduct(${p.id})">Eliminar</button></div></div>`).join('')}
+function renderProducts(ps){const l=$('productList');if(!ps.length){l.innerHTML='<div class="empty">Todavía no hay productos cargados.</div>';return}l.innerHTML=ps.map(p=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')}</div><div class="mini">Costo: ${money(p.cost)} · Stock: ${p.stock??0} · Hasta X${p.max_tier||500} · ${p.active?'Activo':'Inactivo'}</div><div class="mini">${(p.featured===true||p.featured===1||p.featured==='true')?'★ Oferta destacada · ':''}${(p.bestseller===true||p.bestseller===1||p.bestseller==='true')?'Más vendidos · ':''}${Number(p.individual_discount)>0&&p.individual_enabled?'Descuento individual: '+Number(p.individual_discount)+'% · '+(p.individual_scope==='retail'?'Minorista':p.individual_scope==='wholesale'?'Mayorista':'Ambos'):'Sin descuento individual activo'}</div></div><div class="actions"><button class="btn secondary" onclick="editProduct(${p.id})">Editar</button><button class="btn danger" onclick="deleteProduct(${p.id})">Eliminar</button></div></div>`).join('')}
 function clearForm(){
   editingId=null;
   $('formTitle').textContent='Nuevo producto';
@@ -449,7 +453,7 @@ function clearForm(){
   ['productPreview1','productPreview2','productPreview3'].forEach(id=>showPreview(id,''));
   $('pactive').value='true';
   $('pmax_tier').value='500';
-  $('pfeatured').checked=false; $('pfeatured_order').value='0'; $('pindividual_discount').value=''; $('pindividual_scope').value='both'; $('pindividual_start').value=''; $('pindividual_end').value=''; $('pindividual_enabled').checked=false;
+
   hide('productError');
 }
 
@@ -457,10 +461,6 @@ async function saveProduct(){
   hide('productError'); hide('productSuccess');
   const name=$('pname').value.trim();
   if(!name){msg('productError','Ingresá el nombre del producto.');return}
-  const individualDiscount=Number($('pindividual_discount').value||0),individualStart=$('pindividual_start').value,individualEnd=$('pindividual_end').value;
-  if(individualDiscount<0||individualDiscount>100){msg('productError','El descuento individual debe estar entre 0 y 100%.');return}
-  if(individualStart&&individualEnd&&individualEnd<individualStart){msg('productError','La fecha final del descuento no puede ser anterior a la inicial.');return}
-  if($('pindividual_enabled').checked&&individualDiscount<=0){msg('productError','Para activar el descuento individual, ingresá un porcentaje mayor a 0.');return}
 
   let imageUrls=Array.isArray(currentImageUrls) ? [...currentImageUrls] : [];
   const selectedFiles=[
@@ -486,13 +486,6 @@ async function saveProduct(){
       image_url:imageUrlValue,
       active:$('pactive').value==='true',
       max_tier:Number($('pmax_tier').value||500),
-      featured:$('pfeatured').checked,
-      featured_order:Number($('pfeatured_order').value||0),
-      individual_discount:Number($('pindividual_discount').value||0),
-      individual_scope:$('pindividual_scope').value||'both',
-      individual_start:$('pindividual_start').value||null,
-      individual_end:$('pindividual_end').value||null,
-      individual_enabled:$('pindividual_enabled').checked,
       updated_at:new Date().toISOString()
     };
 
@@ -521,13 +514,6 @@ async function editProduct(id){
   $('pstock').value=data.stock??'';
   $('pactive').value=String(data.active!==false);
   $('pmax_tier').value=String(data.max_tier||500);
-  $('pfeatured').checked=data.featured===true||data.featured===1||data.featured==='true';
-  $('pfeatured_order').value=data.featured_order??0;
-  $('pindividual_discount').value=data.individual_discount??'';
-  $('pindividual_scope').value=['both','retail','wholesale'].includes(data.individual_scope)?data.individual_scope:'both';
-  $('pindividual_start').value=data.individual_start||'';
-  $('pindividual_end').value=data.individual_end||'';
-  $('pindividual_enabled').checked=data.individual_enabled===true||data.individual_enabled===1||data.individual_enabled==='true';
   currentImageUrls=parseImageList(data.image_url);
   currentImageUrl=currentImageUrls[0]||'';
   ['productPreview1','productPreview2','productPreview3'].forEach((id,i)=>showPreview(id,currentImageUrls[i]||''));
