@@ -61,6 +61,19 @@ main{max-width:1240px;padding:28px 4% 80px}
  .commercial-item{padding:12px}
 }
 
+
+/* BY FRAAM MARKETPLACE — panel con identidad amarilla y azul */
+:root{--accent:#ffe600;--bg:#f1f2f4;--ink:#252525;--line:#e1e4e8}
+header{background:#ffe600;color:#222}
+.brand small{color:#555}
+header button{background:#3483fa;color:#fff}
+header button:hover{background:#2968c8}
+.btn{background:#3483fa;color:#fff;border-radius:6px}
+.btn:hover{background:#2968c8}
+.btn.secondary{background:#edf3ff;color:#2869c7}
+.panel{border-radius:8px}
+.admin-nav a{color:#3483fa}
+.notice{background:#fff8cc;color:#5b5100}
 </style>
 </head>
 <body>
@@ -99,8 +112,8 @@ main{max-width:1240px;padding:28px 4% 80px}
 <div class="fields">
  <div class="commercial-item"><label for="commercial_cover_desktop_file">Portada comercial — escritorio</label><div class="commercial-help">1920 × 600 px · Relación 3,2:1. Se muestra en pantallas grandes.</div><input id="commercial_cover_desktop_file" type="file" accept="image/jpeg,image/png,image/webp"><img id="commercial_cover_desktop_preview" class="commercial-preview hidden" alt="Vista previa portada escritorio"><div class="commercial-actions"><button type="button" class="btn secondary" onclick="clearCommercialImage('commercial_cover_desktop')">Quitar imagen</button></div></div>
  <div class="commercial-item"><label for="commercial_cover_mobile_file">Portada comercial — móvil</label><div class="commercial-help">900 × 1100 px · Formato vertical. Si no cargás una versión móvil, se adapta la portada de escritorio.</div><input id="commercial_cover_mobile_file" type="file" accept="image/jpeg,image/png,image/webp"><img id="commercial_cover_mobile_preview" class="commercial-preview hidden" alt="Vista previa portada móvil"><div class="commercial-actions"><button type="button" class="btn secondary" onclick="clearCommercialImage('commercial_cover_mobile')">Quitar imagen</button></div></div>
- <div class="commercial-item"><label for="promo_banner_1_file">Banner promocional 1</label><div class="commercial-help">1200 × 500 px · Horizontal. Se muestra debajo de la información comercial.</div><input id="promo_banner_1_file" type="file" accept="image/jpeg,image/png,image/webp"><img id="promo_banner_1_preview" class="commercial-preview hidden" alt="Vista previa banner 1"><div class="commercial-actions"><button type="button" class="btn secondary" onclick="clearCommercialImage('promo_banner_1')">Quitar imagen</button></div></div>
- <div class="commercial-item"><label for="promo_banner_2_file">Banner promocional 2</label><div class="commercial-help">1200 × 500 px · Horizontal. Aparece junto al primer banner; en celular se apilan.</div><input id="promo_banner_2_file" type="file" accept="image/jpeg,image/png,image/webp"><img id="promo_banner_2_preview" class="commercial-preview hidden" alt="Vista previa banner 2"><div class="commercial-actions"><button type="button" class="btn secondary" onclick="clearCommercialImage('promo_banner_2')">Quitar imagen</button></div></div>
+ <div class="commercial-item"><label for="promo_banner_1_file">Banner promocional 1</label><div class="commercial-help">1200 × 500 px · Horizontal. Se incorpora al carrusel promocional automático de la tienda.</div><input id="promo_banner_1_file" type="file" accept="image/jpeg,image/png,image/webp"><img id="promo_banner_1_preview" class="commercial-preview hidden" alt="Vista previa banner 1"><div class="commercial-actions"><button type="button" class="btn secondary" onclick="clearCommercialImage('promo_banner_1')">Quitar imagen</button></div></div>
+ <div class="commercial-item"><label for="promo_banner_2_file">Banner promocional 2</label><div class="commercial-help">1200 × 500 px · Horizontal. Se desliza automáticamente junto al primer banner, también en celulares.</div><input id="promo_banner_2_file" type="file" accept="image/jpeg,image/png,image/webp"><img id="promo_banner_2_preview" class="commercial-preview hidden" alt="Vista previa banner 2"><div class="commercial-actions"><button type="button" class="btn secondary" onclick="clearCommercialImage('promo_banner_2')">Quitar imagen</button></div></div>
 </div>
 <div class="actions" style="margin-top:16px"><button class="btn" onclick="saveCommercialImages()">Guardar espacios comerciales</button></div><div id="commercialMsg" class="success-msg"></div><div id="commercialErr" class="error"></div>
 </div>
@@ -130,7 +143,16 @@ Tarjeta mediante link de pago (recargo informado)"></textarea><div class="file-n
   <div><label style="font-size:11px">Imagen 2</label><input id="pimage_file2" type="file" accept="image/*"><img id="productPreview2" class="preview-image hidden" alt="Vista previa 2"></div>
   <div><label style="font-size:11px">Imagen 3</label><input id="pimage_file3" type="file" accept="image/*"><img id="productPreview3" class="preview-image hidden" alt="Vista previa 3"></div>
 </div>
-</div><div class="field"><label>Hasta qué cantidad se puede vender este producto</label><select id="pmax_tier"><option value="1">Solo X1</option><option value="10">Hasta X10</option><option value="20">Hasta X20</option><option value="50">Hasta X50</option><option value="100">Hasta X100</option><option value="250">Hasta X250</option><option value="500" selected>Hasta X500</option></select><div class="file-note">Este límite es individual para este producto.</div></div><div class="field"><label>Activo</label><select id="pactive"><option value="true">Sí</option><option value="false">No</option></select></div></div><div class="actions"><button class="btn" onclick="saveProduct()">Guardar producto</button><button class="btn secondary" onclick="clearForm()">Limpiar</button></div></div>
+</div><div class="field"><label>Hasta qué cantidad se puede vender este producto</label><select id="pmax_tier"><option value="1">Solo X1</option><option value="10">Hasta X10</option><option value="20">Hasta X20</option><option value="50">Hasta X50</option><option value="100">Hasta X100</option><option value="250">Hasta X250</option><option value="500" selected>Hasta X500</option></select><div class="file-note">Este límite es individual para este producto.</div></div><div class="field"><label>Activo</label><select id="pactive"><option value="true">Sí</option><option value="false">No</option></select></div>
+<div class="field full" style="border-top:1px solid #e5e7eb;padding-top:18px"><h3 style="margin:0 0 12px">Ofertas y destacados</h3><p class="file-note">Elegí si este producto aparece en la sección de destacados y configurá un descuento individual. Puede estar destacado sin descuento.</p></div>
+<div class="field"><label style="display:flex;align-items:center;gap:9px"><input id="pfeatured" type="checkbox" style="width:auto"> Mostrar en Ofertas destacadas</label></div>
+<div class="field"><label for="pfeatured_order">Orden de aparición (menor primero)</label><input id="pfeatured_order" type="number" min="0" step="1" value="0"></div>
+<div class="field"><label for="pindividual_discount">Descuento individual (%)</label><input id="pindividual_discount" type="number" min="0" max="100" step="0.01" placeholder="Ej.: 15"></div>
+<div class="field"><label for="pindividual_scope">Aplicar descuento a</label><select id="pindividual_scope"><option value="both">Minorista y mayorista</option><option value="retail">Solo minorista (X1)</option><option value="wholesale">Solo mayorista (X10 a X500)</option></select></div>
+<div class="field"><label for="pindividual_start">Fecha de inicio</label><input id="pindividual_start" type="date"></div>
+<div class="field"><label for="pindividual_end">Fecha de finalización</label><input id="pindividual_end" type="date"></div>
+<div class="field full"><label style="display:flex;align-items:center;gap:9px"><input id="pindividual_enabled" type="checkbox" style="width:auto"> Activar descuento individual</label><div class="file-note">La promoción general tiene prioridad cuando su alcance coincide. Los descuentos no se acumulan.</div></div>
+</div><div class="actions"><button class="btn" onclick="saveProduct()">Guardar producto</button><button class="btn secondary" onclick="clearForm()">Limpiar</button></div></div>
 <div class="panel admin-section" id="productListPanel"><h2>Productos cargados</h2><div id="productList"><div class="empty">Cargando productos...</div></div></div>
 </section>
 </main>
@@ -365,7 +387,7 @@ async function saveSettings(){
 }
 
 async function loadProducts(){const l=$('productList');l.innerHTML='<div class="empty">Cargando productos...</div>';try{const{data,error}=await db.from('products').select('*').order('id',{ascending:false});if(error)throw error;renderProducts(data||[])}catch(e){l.innerHTML='<div class="error" style="display:block">No se pudieron cargar los productos.<br><br>'+escapeHtml(e.message)+'</div>'}}
-function renderProducts(ps){const l=$('productList');if(!ps.length){l.innerHTML='<div class="empty">Todavía no hay productos cargados.</div>';return}l.innerHTML=ps.map(p=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')}</div><div class="mini">Costo: ${money(p.cost)} · Stock: ${p.stock??0} · Hasta X${p.max_tier||500} · ${p.active?'Activo':'Inactivo'}</div></div><div class="actions"><button class="btn secondary" onclick="editProduct(${p.id})">Editar</button><button class="btn danger" onclick="deleteProduct(${p.id})">Eliminar</button></div></div>`).join('')}
+function renderProducts(ps){const l=$('productList');if(!ps.length){l.innerHTML='<div class="empty">Todavía no hay productos cargados.</div>';return}l.innerHTML=ps.map(p=>`<div class="product-row"><div class="thumb">${getFirstImage(p.image_url)?`<img src="${escapeAttr(getFirstImage(p.image_url))}" alt="">`:'Sin imagen'}</div><div class="grow"><strong>${escapeHtml(p.name||'')}</strong><div class="mini">${escapeHtml(p.category||'Sin categoría')}</div><div class="mini">Costo: ${money(p.cost)} · Stock: ${p.stock??0} · Hasta X${p.max_tier||500} · ${p.active?'Activo':'Inactivo'}</div><div class="mini">${(p.featured===true||p.featured===1||p.featured==='true')?'★ Destacado · ':''}${Number(p.individual_discount)>0&&p.individual_enabled?'Descuento individual: '+Number(p.individual_discount)+'% · '+(p.individual_scope==='retail'?'Minorista':p.individual_scope==='wholesale'?'Mayorista':'Ambos'):'Sin descuento individual activo'}</div></div><div class="actions"><button class="btn secondary" onclick="editProduct(${p.id})">Editar</button><button class="btn danger" onclick="deleteProduct(${p.id})">Eliminar</button></div></div>`).join('')}
 function clearForm(){
   editingId=null;
   $('formTitle').textContent='Nuevo producto';
@@ -376,6 +398,7 @@ function clearForm(){
   ['productPreview1','productPreview2','productPreview3'].forEach(id=>showPreview(id,''));
   $('pactive').value='true';
   $('pmax_tier').value='500';
+  $('pfeatured').checked=false; $('pfeatured_order').value='0'; $('pindividual_discount').value=''; $('pindividual_scope').value='both'; $('pindividual_start').value=''; $('pindividual_end').value=''; $('pindividual_enabled').checked=false;
   hide('productError');
 }
 
@@ -383,6 +406,10 @@ async function saveProduct(){
   hide('productError'); hide('productSuccess');
   const name=$('pname').value.trim();
   if(!name){msg('productError','Ingresá el nombre del producto.');return}
+  const individualDiscount=Number($('pindividual_discount').value||0),individualStart=$('pindividual_start').value,individualEnd=$('pindividual_end').value;
+  if(individualDiscount<0||individualDiscount>100){msg('productError','El descuento individual debe estar entre 0 y 100%.');return}
+  if(individualStart&&individualEnd&&individualEnd<individualStart){msg('productError','La fecha final del descuento no puede ser anterior a la inicial.');return}
+  if($('pindividual_enabled').checked&&individualDiscount<=0){msg('productError','Para activar el descuento individual, ingresá un porcentaje mayor a 0.');return}
 
   let imageUrls=Array.isArray(currentImageUrls) ? [...currentImageUrls] : [];
   const selectedFiles=[
@@ -408,6 +435,13 @@ async function saveProduct(){
       image_url:imageUrlValue,
       active:$('pactive').value==='true',
       max_tier:Number($('pmax_tier').value||500),
+      featured:$('pfeatured').checked,
+      featured_order:Number($('pfeatured_order').value||0),
+      individual_discount:Number($('pindividual_discount').value||0),
+      individual_scope:$('pindividual_scope').value||'both',
+      individual_start:$('pindividual_start').value||null,
+      individual_end:$('pindividual_end').value||null,
+      individual_enabled:$('pindividual_enabled').checked,
       updated_at:new Date().toISOString()
     };
 
@@ -436,6 +470,13 @@ async function editProduct(id){
   $('pstock').value=data.stock??'';
   $('pactive').value=String(data.active!==false);
   $('pmax_tier').value=String(data.max_tier||500);
+  $('pfeatured').checked=data.featured===true||data.featured===1||data.featured==='true';
+  $('pfeatured_order').value=data.featured_order??0;
+  $('pindividual_discount').value=data.individual_discount??'';
+  $('pindividual_scope').value=['both','retail','wholesale'].includes(data.individual_scope)?data.individual_scope:'both';
+  $('pindividual_start').value=data.individual_start||'';
+  $('pindividual_end').value=data.individual_end||'';
+  $('pindividual_enabled').checked=data.individual_enabled===true||data.individual_enabled===1||data.individual_enabled==='true';
   currentImageUrls=parseImageList(data.image_url);
   currentImageUrl=currentImageUrls[0]||'';
   ['productPreview1','productPreview2','productPreview3'].forEach((id,i)=>showPreview(id,currentImageUrls[i]||''));
